@@ -1,0 +1,12 @@
+pandas
+numpy
+matplotlib
+seaborn
+scipy
+statsmodels
+scikit-learn
+jupyter
+python-dotenv
+sqlalchemy
+google-cloud-bigquery
+db-dtypes
