@@ -74,6 +74,30 @@ For the retention metrics, the formal hypotheses are H₀: p₃₀ = p₄₀ and
 
 ---
 
+# Decision Rules
+
+Set before any data was examined.
+
+**Significance level:** α = 0.05, two-sided. Statistical significance is reported together with the size of the difference and its 95% confidence interval.
+
+**Minimum effect of interest:** No business information is available to justify a specific threshold, so the rule uses δ = 0: the decision depends on whether the confidence interval excludes zero. The size of any difference is reported and its practical importance is discussed separately in the findings. This is recorded in the assumption register.
+
+Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 95% confidence interval from L to U.
+
+| Outcome | Rule |
+|---------|------|
+| Move the gate to level 40 | L > 0: 7-day retention is higher for gate_40 |
+| Keep the gate at level 30 | U < 0: 7-day retention is lower for gate_40 |
+| Collect more evidence | The interval includes 0: the data cannot distinguish the two versions |
+
+"Collect more evidence" does not mean the versions have the same retention. It means this sample cannot tell them apart.
+
+**Guardrail:** Total game rounds is exploratory. Differences between versions are reported and interpreted alongside the retention results but do not block the decision automatically. The data does not show what a decline in game rounds costs the business, so no blocking threshold is set.
+
+**Blinding:** Cookie Cats is a public teaching dataset with published analyses. The author had not reviewed those analyses before setting these rules. Using δ = 0 means no threshold was available to adjust toward a known result.
+
+---
+
 # Stakeholders
 
 | Stakeholder | Role | Decision Supported | Needs from the Result |
