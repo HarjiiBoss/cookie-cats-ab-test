@@ -238,6 +238,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 - The test cannot be extended. If the result is "collect more evidence", this project can only recommend further testing, not run it.
 - Retention is recorded at day 1 and day 7 only, so retention curves are not possible.
 - No business cost data is available (value of a retained player, cost of the change).
+- The project runs in the BigQuery sandbox: no DML statements (`INSERT`, `UPDATE`, `DELETE`), tables expire after 60 days, and storage is capped at 10 GiB for the project's lifetime. Cleaning writes new tables with `CREATE TABLE ... AS SELECT`, and the Phase 1 notebook must be able to rebuild every table from the raw file.
 
 ---
 
