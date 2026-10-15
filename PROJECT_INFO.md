@@ -52,12 +52,25 @@ Does moving the first gate from level 30 to level 40 change player retention amo
 
 # Supporting Analytical Questions
 
-List the questions that must be answered to support the primary business question.
+- Were players split between gate_30 and gate_40 in the expected ratio?
+- How do 1-day and 7-day retention compare between the two versions?
+- Does the number of game rounds played differ between the two versions?
+- Does the conclusion hold when extreme and zero-round players are excluded? (Sensitivity check only. The main analysis keeps all players.)
+- What is the smallest retention difference this sample could reliably detect?
 
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+---
+
+# Hypotheses
+
+All tests are two-sided. The direction of any effect is not assumed in advance.
+
+| Metric | Type | Null Hypothesis (H₀) | Alternative Hypothesis (H₁) |
+|--------|------|----------------------|-----------------------------|
+| 7-day retention | Primary | 7-day retention is the same for gate_30 and gate_40 | 7-day retention differs between gate_30 and gate_40 |
+| 1-day retention | Secondary | 1-day retention is the same for gate_30 and gate_40 | 1-day retention differs between gate_30 and gate_40 |
+| Total game rounds | Guardrail | The distribution of game rounds is the same for gate_30 and gate_40 | The distribution of game rounds differs between gate_30 and gate_40 |
+
+For the retention metrics, the formal hypotheses are H₀: p₃₀ = p₄₀ and H₁: p₃₀ ≠ p₄₀, where p₃₀ and p₄₀ are the retention proportions for gate_30 and gate_40.
 
 ---
 
@@ -161,11 +174,44 @@ Example:
 
 # Planned Success Metrics
 
-List the business metrics expected to evaluate success.
-
 | Metric | Business Meaning | Notes |
 |---------|------------------|-------|
-| | | |
+| 7-day retention | Share of players who came back to play 7 days after installing | Primary metric. Decides the outcome |
+| 1-day retention | Share of players who came back to play 1 day after installing | Secondary metric. Supports interpretation, does not decide alone |
+| Total game rounds | Number of rounds a player played after installing | Guardrail. A meaningful decline may prevent a move to level 40 |
+
+## 7-day retention (primary)
+
+| Question | Answer |
+|----------|--------|
+| What is measured? | Whether a player came back and played 7 days after installing |
+| Why does it matter? | It is the later of the two retention points in the data and the closer signal of whether players stay with the game |
+| How is it calculated? | Players with `retention_7` = TRUE divided by all players in the version |
+| What assumptions exist? | `retention_7` means the player played on day 7 after install. Whether it means exactly day 7 or any day up to day 7 is not stated (to confirm in Phase 1) |
+| What are the limitations? | Records one point in time only. Includes players who never reached level 30 and never met a gate, which adds noise. Says nothing about revenue |
+| How will decisions change? | This metric decides between moving the gate, keeping it at level 30, or collecting more evidence, using the decision rules set in Phase 0 |
+
+## 1-day retention (secondary)
+
+| Question | Answer |
+|----------|--------|
+| What is measured? | Whether a player came back and played 1 day after installing |
+| Why does it matter? | It shows whether any difference between versions appears early |
+| How is it calculated? | Players with `retention_1` = TRUE divided by all players in the version |
+| What assumptions exist? | `retention_1` means the player played on day 1 after install (to confirm in Phase 1) |
+| What are the limitations? | 1-day retention measures early retention, but its relationship to the gate placement may be limited because players may not have reached level 30 by that point. The dataset does not establish when individual players reached the gate |
+| How will decisions change? | It supports interpretation of the primary result. It does not decide the outcome on its own, and it is tested with a correction for multiple comparisons |
+
+## Total game rounds (guardrail)
+
+| Question | Answer |
+|----------|--------|
+| What is measured? | The number of game rounds a player played after installing |
+| Why does it matter? | It checks that a change in gate placement does not reduce how much players play |
+| How is it calculated? | `sum_gamerounds` per player, compared between versions using the method chosen in Phase 2.5. Reported with median and mean |
+| What assumptions exist? | The Kaggle description gives the window as the first 14 days after install. This is to be confirmed in Phase 1. If it cannot be established, the uncertainty is documented rather than assumed |
+| What are the limitations? | The observation window does not match the 1-day and 7-day retention windows. Counts are likely to be skewed. More rounds is not always better for the business, for example if players progress faster and reach later gates sooner |
+| How will decisions change? | A meaningful decline in game rounds for gate_40 may prevent moving the gate, even if 7-day retention improves. The threshold for a meaningful decline is set in Phase 0, before examining the results |
 
 ---
 
