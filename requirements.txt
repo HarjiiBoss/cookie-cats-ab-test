@@ -10,3 +10,4 @@ python-dotenv
 sqlalchemy
 google-cloud-bigquery
 db-dtypes
+google-cloud-bigquery-storage
