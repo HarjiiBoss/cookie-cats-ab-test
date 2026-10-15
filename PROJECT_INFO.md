@@ -38,15 +38,15 @@ Consider including:
 
 # Business Problem
 
-Clearly define the business problem.
-
-The problem statement should describe **what needs to be solved**, not the analysis that will be performed.
+Cookie Cats uses gates at set levels, where a player must wait or make an in-app purchase before continuing. The first gate is at level 30. The team ran a test that moved it to level 40 for some players. They need to decide whether to move the first gate to level 40, keep it at level 30, or keep testing before making a change.
 
 ---
 
 # Primary Business Question
 
-To be defined in Phase 0
+Does moving the first gate from level 30 to level 40 change player retention among players who installed the game during the test?
+
+**Decision supported:** Move the gate to level 40, keep it at level 30, or collect more evidence. The rule for choosing between these options is set during Phase 0, before any data is examined.
 
 ---
 
@@ -63,9 +63,11 @@ List the questions that must be answered to support the primary business questio
 
 # Stakeholders
 
-| Stakeholder | Role | Decision Supported |
-|-------------|------|--------------------|
-| | | |
+| Stakeholder | Role | Decision Supported | Needs from the Result |
+|-------------|------|--------------------|-----------------------|
+| Product team | Decision-maker | Move the first gate to level 40, keep it at level 30, or keep testing | A recommendation and how confident it is |
+| Game design team | Implements the gate placement | How level progression is set up if the gate moves | The size of the retention difference and what happened to game rounds |
+| Monetisation team | Affected by the change | Whether gate placement affects in-app purchases | A clear statement of what the analysis can and cannot say about revenue. This cannot be answered if the data has no revenue column (to confirm in Phase 1) |
 
 ---
 
@@ -197,11 +199,9 @@ Examples:
 
 # Initial Assumptions
 
-Record assumptions made before analysis begins.
-
 | Assumption | Reason | Validation Planned |
 |------------|--------|--------------------|
-| | | |
+| Stakeholders are modelled on a typical mobile game studio | The dataset is public and has no real client | None possible. Stated in the README as a portfolio framing |
 
 ---
 
@@ -237,7 +237,12 @@ Track project progress.
 
 # Project Notes
 
-Use this section to record important planning decisions, discussions, or observations made during project setup.
+To confirm in Phase 1:
+
+- Whether the data has a revenue or purchase column
+- Whether the data has a level-reached column
+- What a gate does (wait or pay). Taken from the Kaggle dataset description, not from the data
+- That the players are new installs during the test. Taken from the Kaggle dataset description, not from the data
 
 ---
 
