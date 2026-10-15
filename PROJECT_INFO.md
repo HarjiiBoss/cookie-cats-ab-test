@@ -32,7 +32,7 @@ The team ran an A/B test in which some players met the first gate at level 30, t
 
 # Business Problem
 
-Cookie Cats uses gates at set levels, where a player must wait or make an in-app purchase before continuing. The first gate is at level 30. The team ran a test that moved it to level 40 for some players. They need to decide whether to move the first gate to level 40, keep it at level 30, or keep testing before making a change.
+The first gate currently sits at level 30. The team needs to decide whether to move it to level 40, keep it at level 30, or keep testing before making a change.
 
 ---
 
@@ -130,7 +130,7 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 - Total game rounds as an exploratory guardrail
 - Validity checks (sample ratio test) and robustness checks (bootstrap interval, rerun without extreme and zero-round players)
 - The smallest retention difference the sample could reliably detect
-- A Tableau dashboard and executive summary for the product team
+- A Tableau dashboard and executive summary prepared for a product-team audience
 
 ## Excluded
 
@@ -183,7 +183,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 |---------|------------------|-------|
 | 7-day retention | Share of players who came back to play 7 days after installing | Primary metric. Decides the outcome |
 | 1-day retention | Share of players who came back to play 1 day after installing | Secondary metric. Supports interpretation, does not decide alone |
-| Total game rounds | Number of rounds a player played after installing | Guardrail. A meaningful decline may prevent a move to level 40 |
+| Total game rounds | Number of rounds a player played after installing | Guardrail, exploratory. Reported and interpreted, does not block the decision |
 
 ## 7-day retention (primary)
 
@@ -212,11 +212,11 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 | Question | Answer |
 |----------|--------|
 | What is measured? | The number of game rounds a player played after installing |
-| Why does it matter? | It checks that a change in gate placement does not reduce how much players play |
+| Why does it matter? | It checks whether a change in gate placement is associated with less play |
 | How is it calculated? | `sum_gamerounds` per player, compared between versions using the method chosen in Phase 2.5. Reported with median and mean |
 | What assumptions exist? | The Kaggle description gives the window as the first 14 days after install. This is to be confirmed in Phase 1. If it cannot be established, the uncertainty is documented rather than assumed |
 | What are the limitations? | The observation window does not match the 1-day and 7-day retention windows. Counts are likely to be skewed. More rounds is not always better for the business, for example if players progress faster and reach later gates sooner |
-| How will decisions change? | A meaningful decline in game rounds for gate_40 may prevent moving the gate, even if 7-day retention improves. The threshold for a meaningful decline is set in Phase 0, before examining the results |
+| How will decisions change? | It does not block the decision automatically. Any difference is reported and interpreted alongside the retention result, so the product team can weigh it. The data does not show what a decline in game rounds costs the business |
 
 ---
 
@@ -226,7 +226,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 |------|------------------|------------|
 | Players were not randomly assigned | A difference between versions could not be read as caused by the gate | Sample ratio test in Phase 3; conclusions qualified if assignment cannot be supported |
 | No level-reached column | Players who never met the gate are included, which adds noise and makes a real effect harder to detect | All players are analysed (intent-to-treat); minimum detectable difference reported in Phase 3 |
-| No revenue column | The analysis cannot say anything about monetisation | Confirmed in Phase 1; stated as a limitation for the monetisation team |
+| No revenue column | The analysis cannot say anything about monetisation | To be confirmed in Phase 1; stated as a limitation for the monetisation team |
 | Game rounds are skewed with extreme values | Mean-based comparisons could mislead | Method chosen in Phase 2.5 accounts for skew; sensitivity rerun without extreme and zero-round players |
 | BigQuery setup problems | Delays to Phase 1 | Analysis plan does not change if a local SQL database is used instead |
 
@@ -268,8 +268,6 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 ---
 
 # Planned Workflow
-
-Track project progress.
 
 - [ ] Phase 0 — Scoping & Project Setup
 - [ ] Phase 1 — Data Loading, Cleaning & Exploration
