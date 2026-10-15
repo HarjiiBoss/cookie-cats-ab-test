@@ -116,19 +116,18 @@ Examples may include:
 
 ## Included
 
-Document what is included within the project.
+- Comparison of 7-day retention (primary) and 1-day retention (secondary) between gate_30 and gate_40
+- Total game rounds as an exploratory guardrail
+- Validity checks (sample ratio test) and robustness checks (bootstrap interval, rerun without extreme and zero-round players)
+- The smallest retention difference the sample could reliably detect
+- A Tableau dashboard and executive summary for the product team
 
-- [ ]
-- [ ]
-- [ ]
+## Excluded
 
-### Excluded
-
-Document what is intentionally outside the project scope.
-
-- [ ]
-- [ ]
-- [ ]
+- Revenue and in-app purchase effects (no revenue column is expected; to confirm in Phase 1)
+- Retention beyond day 7
+- Reasons why players stop playing, which the data does not record
+- Predictive modelling
 
 ---
 
@@ -217,29 +216,22 @@ Example:
 
 # Known Risks
 
-Document risks identified during project planning.
-
 | Risk | Potential Impact | Mitigation |
 |------|------------------|------------|
-| | | |
+| Players were not randomly assigned | A difference between versions could not be read as caused by the gate | Sample ratio test in Phase 3; conclusions qualified if assignment cannot be supported |
+| No level-reached column | Players who never met the gate are included, which adds noise and makes a real effect harder to detect | All players are analysed (intent-to-treat); minimum detectable difference reported in Phase 3 |
+| No revenue column | The analysis cannot say anything about monetisation | Confirmed in Phase 1; stated as a limitation for the monetisation team |
+| Game rounds are skewed with extreme values | Mean-based comparisons could mislead | Method chosen in Phase 2.5 accounts for skew; sensitivity rerun without extreme and zero-round players |
+| BigQuery setup problems | Delays to Phase 1 | Analysis plan does not change if a local SQL database is used instead |
 
 ---
 
 # Constraints
 
-Document known project limitations.
-
-Examples:
-
-- Limited historical data
-- Missing variables
-- Time constraints
-- Data quality concerns
-- Resource limitations
-
-- [ ]
-- [ ]
-- [ ]
+- The data is public learning data. Findings are not evidence about any real game.
+- The test cannot be extended. If the result is "collect more evidence", this project can only recommend further testing, not run it.
+- Retention is recorded at day 1 and day 7 only, so retention curves are not possible.
+- No business cost data is available (value of a retained player, cost of the change).
 
 ---
 
@@ -248,6 +240,12 @@ Examples:
 | Assumption | Reason | Validation Planned |
 |------------|--------|--------------------|
 | Stakeholders are modelled on a typical mobile game studio | The dataset is public and has no real client | None possible. Stated in the README as a portfolio framing |
+| Players were randomly assigned to gate_30 or gate_40 | Needed for a causal reading of any difference | Indirect only: sample ratio test in Phase 3. The assignment method is not documented |
+| Each row is one unique player | Retention rates divide by the number of players | Phase 1: compare row count with distinct `userid` count |
+| Each player stayed in one version for the whole test | A player seeing both versions would blur the comparison | Phase 1: check that no `userid` appears in both versions |
+| `retention_1` and `retention_7` mean the player played 1 and 7 days after install | Both retention metrics depend on this definition | Phase 1: check values. The exact definition comes from the Kaggle description and cannot be fully verified from the data |
+| `sum_gamerounds` covers the same window for every player | The guardrail comparison depends on it | Phase 1: check against the Kaggle description. Cannot be verified from the data alone |
+| The decision rule uses δ = 0 | No business information supports a specific threshold | Not testable. Stated in Decision Rules and in the findings |
 
 ---
 
