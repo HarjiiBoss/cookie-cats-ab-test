@@ -24,15 +24,9 @@
 
 # Business Context
 
-Describe the business environment surrounding the project.
+Cookie Cats is a mobile puzzle game. According to the Kaggle dataset description, players progress through levels and meet gates at set points, where they must wait or make an in-app purchase before continuing. Where the first gate sits determines how much of the game a player sees before the first forced pause.
 
-Consider including:
-
-- Organization or industry background
-- Current business situation
-- Existing challenges
-- Why this analysis is being performed
-- Relevant operational context
+The team ran an A/B test in which some players met the first gate at level 30, the existing position, and others at level 40. This project analyses that test to support the decision on where the first gate should be.
 
 ---
 
@@ -110,29 +104,21 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 
 # Business Objectives
 
-Describe what the organization hopes to achieve.
-
-- [ ]
-- [ ]
-- [ ]
+- Decide where the first gate should sit, based on evidence about player retention
+- Assess whether there is evidence that moving the gate to level 40 lowers 7-day retention
+- Understand how much confidence the available evidence supports before acting
 
 ---
 
 # Success Criteria
 
-Define what constitutes a successful project.
-
-Examples may include:
-
-- Business questions answered
-- Decision supported
-- Dashboard delivered
-- Model validated
-- Documentation completed
-
-- [ ]
-- [ ]
-- [ ]
+- The decision rule set in Phase 0 (α = 0.05, δ = 0) is applied to 7-day retention and the result is classified as move the gate, keep it at level 30, or collect more evidence
+- The sample ratio test is completed before any effect is interpreted, and its result is read alongside the other data-quality checks. A passing test does not prove random assignment
+- 1-day retention and game rounds are reported and interpreted alongside the primary result
+- Every conclusion is worded at the evidence level the analysis supports
+- Limitations are stated, including what the analysis cannot say about revenue
+- Another analyst can reproduce the results from the repository, the documentation and the Kaggle download
+- The dashboard and executive summary are prepared for a product-team audience
 
 ---
 
@@ -157,41 +143,37 @@ Examples may include:
 
 # Expected Deliverables
 
-Select or modify as appropriate.
-
 - [ ] README
-- [ ] Executive Summary
-- [ ] Technical Report
-- [ ] SQL Scripts
-- [ ] Python Notebooks
-- [ ] Dashboard
-- [ ] Presentation
-- [ ] Data Dictionary
-- [ ] Cleaning Log
-- [ ] Assumption Register
-- [ ] Project Glossary
+- [ ] Executive summary
+- [ ] Technical documentation (phase documents in `docs/`)
+- [ ] SQL scripts
+- [ ] Python notebooks
+- [ ] Tableau dashboard
+- [ ] Presentation notes
+- [ ] Data dictionary
+- [ ] Cleaning log
+- [ ] Assumption register
+- [ ] Project glossary
 
 ---
 
 # Available Data
 
-| Dataset | Source | Owner | Refresh Frequency | Status |
-|----------|--------|-------|-------------------|--------|
-| | | | | |
+| Dataset | Source | Publisher/uploader | Refresh Frequency | Status |
+|----------|--------|--------------------|-------------------|--------|
+| Cookie Cats A/B test | Kaggle: `yufengsui/mobile-games-ab-testing` | Kaggle uploader: yufengsui. The original owner of the data is not stated on the listing | Static, single release | Identified. Download and licence check in Phase 1 |
 
 ---
 
 # Planned Analytical Approach
 
-Describe the anticipated workflow.
+- **Phase 1:** keep the downloaded file unchanged in `data/raw/`, load it into a raw BigQuery table, profile it, check data quality, write cleaning results to a separate table, and explore
+- **Phase 2:** describe retention and game rounds by version, without causal wording
+- **Phase 2.5:** select and justify the statistical methods before running them, including the test and interval method for 7-day retention and the multiple-comparison correction for 1-day retention
+- **Phase 3:** sample ratio test as a diagnostic, test of 7-day retention with a 95% confidence interval, 1-day retention with the chosen correction, an exploratory comparison of game rounds, robustness checks, and the minimum detectable difference. Robustness checks are reported whatever their result and do not replace the main analysis
+- **Phase 4:** Tableau dashboard, executive summary and final README
 
-Example:
-
-- Descriptive analysis
-- Business analysis
-- Statistical testing
-- Predictive modelling
-- Dashboard development
+The minimum detectable difference (the smallest effect this sample could reliably detect) is reported separately from the minimum effect of interest (δ = 0, set in Decision Rules). They answer different questions.
 
 ---
 
@@ -275,18 +257,13 @@ Example:
 
 # Dependencies
 
-List anything required before analysis can begin.
-
-Examples:
-
-- Database access
-- API credentials
-- Data approval
-- Subject matter expertise
-
-- [ ]
-- [ ]
-- [ ]
+- [x] Google Cloud project `cookie-cats-ab-taofeek` with no billing account (BigQuery sandbox)
+- [x] BigQuery dataset `cookie_cats` created (location: US)
+- [x] Local login through Application Default Credentials, with no key file
+- [x] Python environment (`.venv`) with packages from `requirements.txt`
+- [x] BigQuery reachable from Python
+- [x] Tableau Public account available (used in Phase 4)
+- [ ] Cookie Cats data downloaded from Kaggle (Phase 1)
 
 ---
 
@@ -310,7 +287,8 @@ To confirm in Phase 1:
 - Whether the data has a revenue or purchase column
 - Whether the data has a level-reached column
 - What a gate does (wait or pay). Taken from the Kaggle dataset description, not from the data
-- That the players are new installs during the test. Taken from the Kaggle dataset description, not from the data
+- Whether the records represent players who installed the game during the test. This comes from the Kaggle description and may not be verifiable from the data itself
+- The licence and usage terms of the Kaggle dataset
 
 ---
 
