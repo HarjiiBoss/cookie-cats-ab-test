@@ -1,14 +1,6 @@
 # Phase 0 — Scoping & Project Setup
 
-> This document records all planning activities completed during **Phase 0 — Scoping & Project Setup**. It should be completed before any data is loaded or analysis begins.
-
----
-
-# Phase Objective
-
-Define the business problem, establish project scope, identify stakeholders, and prepare the project environment.
-
-A project should not proceed beyond this phase until the business problem is clearly understood and the required resources have been identified.
+This document records what was done and decided during Phase 0. The scoping decisions themselves (business question, hypotheses, metrics, decision rules, scope, risks and assumptions) are kept in [PROJECT_INFO.md](../PROJECT_INFO.md) so they exist in one place only.
 
 ---
 
@@ -16,246 +8,114 @@ A project should not proceed beyond this phase until the business problem is cle
 
 | Field | Value |
 |--------|-------|
-| Status | Not Started |
-| Started | |
-| Completed | |
-| Owner | |
-| Last Updated | 2026-10-15 |
+| Status | Complete |
+| Started | 2026-10-15 |
+| Completed | 2026-10-16 |
+| Owner | Taofeek Salami |
+| Branch | `phase-0-scoping` |
 
 ---
 
-# Business Understanding
+# Decisions Made
 
-## Business Context
+| Decision | Where it is recorded |
+|----------|----------------------|
+| Business question: does moving the first gate from level 30 to level 40 change player retention? | PROJECT_INFO.md → Primary Business Question |
+| Primary metric 7-day retention, secondary 1-day retention, guardrail total game rounds (exploratory) | PROJECT_INFO.md → Planned Success Metrics |
+| Two-sided tests at α = 0.05. The decision uses zero as the threshold for the direction of the 7-day retention difference (δ = 0), read from its 95% confidence interval. No separate threshold for practical business importance was set | PROJECT_INFO.md → Decision Rules |
+| Game rounds reported and interpreted but not used to block the decision | PROJECT_INFO.md → Decision Rules |
+| All players kept in the main analysis (intent-to-treat); exclusions used only for sensitivity checks | PROJECT_INFO.md → Supporting Analytical Questions; Known Risks |
+| Stakeholders modelled on a typical mobile game studio | PROJECT_INFO.md → Stakeholders; Initial Assumptions |
 
-Describe the business environment, background, and circumstances that motivated this analysis.
-
----
-
-## Business Problem
-
-Describe the business problem requiring analytical investigation.
-
----
-
-## Primary Business Question
-
-To be defined in Phase 0
+All decision rules were set before the dataset was downloaded or examined.
 
 ---
 
-## Supporting Analytical Questions
+# Environment Setup
 
--
-
--
-
--
-
----
-
-# Business Objectives
-
--
-
--
-
--
+| Component | Setting |
+|-----------|---------|
+| Repository | `cookie-cats-ab-test`, private on GitHub, created with `new_project.py` from Playbook v3.1 |
+| Branching | Work on `phase-N-description` branches, merged into `main` by pull request |
+| Python | 3.13.5 in a project virtual environment (`.venv`), packages from `requirements.txt` |
+| Google Cloud project | `cookie-cats-ab-taofeek`, with no billing account linked (BigQuery sandbox) |
+| BigQuery dataset | `cookie_cats`, location US |
+| Authentication | Application Default Credentials from the author's Google login. No service account key file |
+| Configuration | `.env` (not committed) holds the project ID, dataset and location. `.env.example` is committed as a template |
+| Connection test | Listing datasets and running `SELECT 1` from Python inside `.venv` both succeeded |
 
 ---
 
-# Success Criteria
+# Issues and Resolutions
 
-Define how project success will be evaluated.
+| Issue | What happened | Resolution |
+|-------|---------------|------------|
+| Billing account | The Google Cloud free trial signup required a prepayment, which was not made. The billing account was closed but remained linked to the project | Billing was disabled on the project, so no billing account is linked and BigQuery runs in sandbox mode |
+| Missing virtual environment | `.venv` did not exist in the project folder, so the earlier package install had not gone into a project environment | Created `.venv` with `python3 -m venv .venv` and installed `requirements.txt` into it |
+| Home folder under Git | The home folder was a Git repository linked to an earlier project's remote. Only one commit (`README.md`) had been pushed from it | Renamed `~/.git` to a backup folder. Verified that the home folder is no longer a repository and that this project is not nested inside one |
+| BigQuery Storage warning | Query results printed a warning that the BigQuery Storage package was missing | Added `google-cloud-bigquery-storage` to `requirements.txt` |
+| `gcloud init` error | The Compute Engine API check failed during `gcloud init` | No action. This project does not use Compute Engine, and the CLI configuration completed |
 
--
-
--
-
--
-
----
-
-# Stakeholders
-
-| Stakeholder | Role | Decision Supported |
-|-------------|------|--------------------|
-| | | |
+Safety measures added during setup: credential file patterns in `.gitignore`, and `.env` confirmed as ignored by Git.
 
 ---
 
-# Expected Deliverables
+# Concept Notes
 
-- Executive Summary
-- Technical Report
-- SQL Scripts
-- Python Notebooks
-- Dashboard
-- Presentation
-- Supporting Documentation
+**Hypotheses and two-sided tests.** The null hypothesis (H₀) says the versions do not differ. The test measures how surprising the data would be if H₀ were true. A two-sided test looks for a difference in either direction, which matches a question about whether retention changes. Choosing one side after seeing the data can make the evidence appear stronger than it is.
 
----
+**Significance level (α).** α = 0.05 is the chosen threshold for statistical significance. If the null hypothesis were true and the test’s assumptions held, a test at this level would incorrectly reject H₀ about 5% of the time over repeated tests.
 
-# Project Scope
+**Decision rules set in advance.** Writing down what each result means before seeing the data helps prevent the threshold from being moved to fit the result. “Collect more evidence” is a real outcome. It means the sample could not distinguish the versions with sufficient confidence, not that they have the same retention.
 
-## Included
+**Primary, secondary and guardrail metrics.** The primary metric decides the outcome, and there is only one. The secondary metric helps explain the result but cannot decide it. A guardrail checks for potential harm elsewhere. In this project, the guardrail is exploratory because no threshold for harm could be justified.
 
--
+**Intent-to-treat.** Every player is analysed in the group they were assigned to, including players who never reached the gate. If assignment was random, this approach preserves the original group comparison rather than selecting players based on what happened after assignment. Including all players may make a gate-related effect harder to detect if many players never reached the gate.
 
--
+**Sample ratio test.** Checks whether the group sizes match the expected split. A failed test is a warning sign that the allocation may not match expectations. A passed test does not prove assignment was random.
 
--
+**Minimum detectable difference vs minimum effect of interest.** The minimum detectable difference is the smallest effect the sample could reliably detect under specified statistical assumptions. The minimum effect of interest (δ) is the smallest effect worth acting on. The first describes the statistical capability of the analysis; the second describes the business decision.
 
-## Excluded
+**BigQuery structure and access.** A project holds datasets, and a dataset holds tables (`project.dataset.table`). Application Default Credentials allow local tools to authenticate using the author’s Google account without keeping a service account key file in the repository. The BigQuery sandbox has no DML, a 10 GiB lifetime storage cap and a 60-day table expiry.
 
--
-
--
-
--
-
----
-
-# Data Requirements
-
-| Dataset | Source | Owner | Expected Availability | Status |
-|----------|--------|-------|-----------------------|--------|
-| | | | | |
-
----
-
-# Assumptions
-
-Document assumptions made before analysis begins.
-
--
-
--
-
--
-
----
-
-# Constraints
-
-Document any known business, technical, legal, resource, or time constraints.
-
--
-
--
-
--
-
----
-
-# Risks
-
-Identify factors that may affect project delivery or analytical validity.
-
--
-
--
-
--
-
----
-
-# Dependencies
-
-Identify approvals, datasets, software, people, or resources required before work can begin.
-
--
-
--
-
--
-
----
-
-# Project Environment
-
-## Repository
-
-- [ ] Repository created
-- [ ] README initialized
-- [ ] Documentation structure created
-
----
-
-## Development Environment
-
-- [ ] Virtual environment created
-- [ ] Dependencies installed
-- [ ] `.env` configured
-- [ ] Database connection verified
-
----
-
-## Version Control
-
-- [ ] Git initialized
-- [ ] Initial commit created
-- [ ] Remote repository configured (if applicable)
-
----
-
-# Planned Workflow
-
-- [ ] Phase 0 — Scoping & Project Setup
-- [ ] Phase 1 — Data Loading, Cleaning & Exploration
-- [ ] Phase 2 — Business Analysis
-- [ ] Phase 2.5 — Analytical Method Selection
-- [ ] Phase 3 — Advanced Analytics & Modelling
-- [ ] Phase 4 — Reporting, Communication & Publication
-
----
-
-# Phase Notes
-
-Record important planning decisions, stakeholder discussions, approvals, or issues identified during this phase.
+**Single source of truth.** Each decision is documented in one authoritative place, and other documents refer back to it, so duplicated copies do not drift apart.
 
 ---
 
 # Exit Checklist
 
-Proceed to **Phase 1** only when all applicable items have been completed.
-
 ## Business
 
-- [ ] Business problem clearly defined
-- [ ] Business question documented
-- [ ] Success criteria agreed
-- [ ] Stakeholders identified
-- [ ] Project scope established
-
----
+- [x] Business problem clearly defined
+- [x] Business question documented
+- [x] Success criteria agreed
+- [x] Stakeholders identified
+- [x] Project scope established
+- [x] Decision rules set before data access
 
 ## Data
 
-- [ ] Required datasets identified
-- [ ] Data ownership confirmed
-- [ ] Data availability verified
-
----
+- [x] Required dataset identified
+- [ ] Data ownership and licence confirmed (moved to Phase 1, with the download)
+- [ ] Data availability verified (moved to Phase 1, with the download)
 
 ## Technical
 
-- [ ] Repository structure created
-- [ ] Development environment configured
-- [ ] Version control initialized
-
----
+- [x] Repository structure created
+- [x] Development environment configured
+- [x] Version control initialised and pushed
+- [x] BigQuery reachable from Python
 
 ## Documentation
 
-- [ ] Project Information completed
-- [ ] README initialized
-- [ ] Phase documentation updated
+- [x] PROJECT_INFO.md completed
+- [x] README initialised
+- [x] Phase documentation updated
+- [x] Assumption register started
+- [x] Security notes started
 
 ---
 
 # Phase Outcome
 
-Summarize the key decisions made during Phase 0 and confirm readiness to proceed to Phase 1.
-
----
+The business question, metrics and decision rules were documented before the dataset was downloaded or examined. The development environment is configured and ready for Phase 1. Confirming the dataset's licence and downloading the data are the first Phase 1 tasks. The remaining documentation items are tracked in the exit checklist above.
