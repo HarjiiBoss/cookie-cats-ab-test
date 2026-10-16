@@ -15,10 +15,10 @@
 | Industry | Mobile Gaming |
 | Analytics Domain | Product Analytics |
 | Project Type | Portfolio Project |
-| Status | Phase 0 — Scoping |
+| Status | Phase 1 — Data Loading, Cleaning & Exploration |
 | Author | Taofeek Salami |
 | Date Created | 2026-10-15 |
-| Last Updated | 2026-10-15 |
+| Last Updated | 2026-10-16 |
 
 ---
 
@@ -271,7 +271,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 
 # Planned Workflow
 
-- [ ] Phase 0 — Scoping & Project Setup
+- [x] Phase 0 — Scoping & Project Setup
 - [ ] Phase 1 — Data Loading, Cleaning & Exploration
 - [ ] Phase 2 — Business Analysis
 - [ ] Phase 2.5 — Analytical Method Selection
@@ -297,3 +297,4 @@ To confirm in Phase 1:
 | Date | Version | Summary |
 |------|---------|---------|
 | 2026-10-15 | 1.0 | Initial project charter created. |
+| 2026-10-16 | 1.1 | Phase 0 complete: business question, stakeholders, hypotheses, metrics, decision rules (δ = 0), scope, risks, constraints, assumptions and dependencies defined. |

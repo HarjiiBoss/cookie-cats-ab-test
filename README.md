@@ -2,7 +2,7 @@
 
 Analysis of a mobile game A/B test to decide where the first progression gate should sit. Built with the Data Analysis Playbook v3.1.
 
-> **Status:** Phase 0 (scoping and setup). The analysis has not started yet; findings will be added when the project is complete.
+> **Status:** Phase 0 complete. Phase 1 (data loading, cleaning and exploration) is next; findings will be added when the project is complete.
 
 ---
 
@@ -44,7 +44,7 @@ The data is not stored in this repository. See Reproducibility for how to downlo
 
 # Progress
 
-- [ ] Phase 0 — Scoping & Project Setup
+- [x] Phase 0 — Scoping & Project Setup
 - [ ] Phase 1 — Data Loading, Cleaning & Exploration
 - [ ] Phase 2 — Business Analysis
 - [ ] Phase 2.5 — Analytical Method Selection

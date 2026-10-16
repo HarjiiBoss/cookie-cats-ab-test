@@ -8,9 +8,9 @@ This document records what was done and decided during Phase 0. The scoping deci
 
 | Field | Value |
 |--------|-------|
-| Status | In progress |
+| Status | Complete |
 | Started | 2026-10-15 |
-| Completed | |
+| Completed | 2026-10-16 |
 | Owner | Taofeek Salami |
 | Branch | `phase-0-scoping` |
 
@@ -109,10 +109,10 @@ Safety measures added during setup: credential file patterns in `.gitignore`, an
 ## Documentation
 
 - [x] PROJECT_INFO.md completed
-- [ ] README initialised
+- [x] README initialised
 - [x] Phase documentation updated
-- [ ] Assumption register started
-- [ ] Security notes started
+- [x] Assumption register started
+- [x] Security notes started
 
 ---
 

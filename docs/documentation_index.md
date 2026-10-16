@@ -8,15 +8,15 @@
 
 | Document | Purpose | Status | Last Updated |
 |----------|---------|--------|--------------|
-| PROJECT_INFO.md | Project planning and scoping | ☐ Not Started | |
-| README.md | Project overview and public documentation | ☐ Not Started | |
+| PROJECT_INFO.md | Project planning and scoping | ☑ Phase 0 complete (updated each phase) | 2026-10-16 |
+| README.md | Project overview and public documentation | ◐ Started | 2026-10-16 |
 | data_dictionary.md | Variable definitions and metadata | ☐ Not Started | |
 | project_glossary.md | Business and technical terminology | ☐ Not Started | |
-| assumption_register.md | Analytical assumptions | ☐ Not Started | |
+| assumption_register.md | Analytical assumptions | ◐ Started | 2026-10-16 |
 | cleaning_log.md | Data cleaning decisions | ☐ Not Started | |
-| security_notes.md | Security and data handling | ☐ Not Started | |
-| tableau_blueprint.md | Dashboard planning | ☐ Not Started | |
-| phase_00_setup.md | Phase 0 documentation | ☐ Not Started | |
+| security_notes.md | Security and data handling | ◐ Started | 2026-10-16 |
+| tableau_blueprint.md | Dashboard planning | ☐ Not Started (file created in Phase 4) | |
+| phase_00_setup.md | Phase 0 documentation | ☑ Complete | 2026-10-16 |
 | phase_01_data_preparation.md | Phase 1 documentation | ☐ Not Started | |
 | phase_02_business_analysis.md | Phase 2 documentation | ☐ Not Started | |
 | phase_025_method_selection.md | Phase 2.5 documentation | ☐ Not Started | |
@@ -36,7 +36,9 @@ Phase 0
     │
     ├── PROJECT_INFO.md
     ├── README.md
-    └── phase_00_setup.md
+    ├── phase_00_setup.md
+    ├── assumption_register.md   (started; updated every phase)
+    └── security_notes.md        (started; updated every phase)
 
 Phase 1
     │
@@ -55,7 +57,6 @@ Phase 2.5
 
 Phase 3
     │
-    ├── assumption_register.md
     └── phase_03_advanced_analysis.md
 
 Phase 4
@@ -63,7 +64,6 @@ Phase 4
     ├── executive_summary.md
     ├── presentation_notes.md
     ├── tableau_blueprint.md
-    ├── security_notes.md
     └── phase_04_reporting.md
 ```
 
@@ -73,9 +73,9 @@ Phase 4
 
 ## Phase 0
 
-- [ ] PROJECT_INFO.md completed
-- [ ] README.md drafted
-- [ ] Phase 0 documentation completed
+- [x] PROJECT_INFO.md completed
+- [x] README.md drafted
+- [x] Phase 0 documentation completed
 
 ---
 
