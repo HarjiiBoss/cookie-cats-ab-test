@@ -161,7 +161,7 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 
 | Dataset | Source | Publisher/uploader | Refresh Frequency | Status |
 |----------|--------|--------------------|-------------------|--------|
-| Cookie Cats A/B test | Kaggle: `yufengsui/mobile-games-ab-testing` | Kaggle uploader: yufengsui. The original owner of the data is not stated on the listing | Static, single release | Identified. Download and licence check in Phase 1 |
+| Cookie Cats A/B test | Kaggle: `yufengsui/mobile-games-ab-testing`. The listing states the data comes from DataCamp project 184 (https://www.datacamp.com/projects/184) | Kaggle uploader: yufengsui. The original owner of the underlying data is not stated | Not specified on the listing. Treated as a single download, identified by its checksum | Licence checked: listed as Unknown. Download in progress |
 
 ---
 
@@ -282,13 +282,16 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 
 # Project Notes
 
+Confirmed in Phase 1:
+
+- The data has no revenue or purchase column (file header, 2026-10-16)
+- The data has no level-reached column (file header, 2026-10-16)
+- The dataset licence is listed as Unknown on Kaggle; the listing names DataCamp project 184 as the source
+
 To confirm in Phase 1:
 
-- Whether the data has a revenue or purchase column
-- Whether the data has a level-reached column
 - What a gate does (wait or pay). Taken from the Kaggle dataset description, not from the data
 - Whether the records represent players who installed the game during the test. This comes from the Kaggle description and may not be verifiable from the data itself
-- The licence and usage terms of the Kaggle dataset
 
 ---
 

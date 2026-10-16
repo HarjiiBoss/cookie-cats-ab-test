@@ -52,7 +52,7 @@ Checked on 2026-10-16 by searching the full history of every branch on GitHub (`
 
 | Dataset | License / Usage Terms | Compliant |
 |----------|-----------------------|-----------|
-| Cookie Cats A/B test (Kaggle: `yufengsui/mobile-games-ab-testing`) | To be read from the Kaggle listing in Phase 1 | Pending. The data is not redistributed through this repository |
+| Cookie Cats A/B test (Kaggle: `yufengsui/mobile-games-ab-testing`, originally from DataCamp project 184) | Listed as "Unknown" on Kaggle (checked 2026-10-16). No usage terms are granted on the listing | Used for non-commercial portfolio analysis only, with the source credited. The data is not redistributed through this repository; readers download it from the source themselves |
 
 The repository's MIT licence covers the project's code and documentation only, not the dataset.
 
