@@ -253,6 +253,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 | `retention_1` and `retention_7` mean the player played 1 and 7 days after install | Both retention metrics depend on this definition | Phase 1: check values. The exact definition comes from the Kaggle description and cannot be fully verified from the data |
 | `sum_gamerounds` covers the same window for every player | The guardrail comparison depends on it | Phase 1: check against the Kaggle description. Cannot be verified from the data alone |
 | The decision rule uses δ = 0 | No business information supports a specific threshold | Not testable. Stated in Decision Rules and in the findings |
+| The Kaggle description of the game (gates, new installs during the test) is accurate | The business context and population definition rely on it | Phase 1: check what the data can confirm; the rest stays documentation-based |
 
 ---
 

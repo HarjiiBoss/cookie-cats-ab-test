@@ -1,31 +1,27 @@
 # Assumption Register
 
-> This document records every significant assumption introduced during the project. Assumptions should be documented as soon as they are made and updated whenever they are validated, revised, or no longer apply.
+This register tracks every significant assumption in the project, from when it is made until it is validated, revised or retired. The Phase 0 snapshot is in [PROJECT_INFO.md](../PROJECT_INFO.md) → Initial Assumptions; this register is the version kept up to date. A status changes only after the check has actually been carried out.
 
-> Observations, evidence, and assumptions should always remain clearly separated.
-
----
-
-# Purpose
-
-Analytical work often requires assumptions because information is incomplete, unavailable, or uncertain.
-
-Documenting assumptions improves:
-
-- Transparency
-- Reproducibility
-- Analytical defensibility
-- Risk assessment
-
-Every assumption should explain **why it was necessary** and **how it may influence interpretation**.
+| ID | Assumption | Category | Reason | Phase | Potential Impact | Validation Status | Owner |
+|----|------------|----------|--------|-------|------------------|-------------------|-------|
+| A-001 | Stakeholders are modelled on a typical mobile game studio | Business | The dataset is public and has no real client | 0 | Stakeholder needs may differ from a real studio's. Does not affect the statistical results | Not testable. Stated as a portfolio framing | Taofeek Salami |
+| A-002 | Players were randomly assigned to gate_30 or gate_40 | Analytical | Needed for a causal reading of any difference | 0 | If false, a difference cannot be attributed to the gate | Untested. Indirect check only: sample ratio test in Phase 3 | Taofeek Salami |
+| A-003 | Each row is one unique player | Data | Retention rates divide by the number of players | 0 | Duplicates would distort rates and group sizes | Untested. Phase 1: row count vs distinct `userid` | Taofeek Salami |
+| A-004 | Each player stayed in one version for the whole test | Data | A player in both versions would blur the comparison | 0 | Contamination would shrink any real difference | Untested. Phase 1: check no `userid` appears in both versions | Taofeek Salami |
+| A-005 | `retention_1` and `retention_7` mean the player played 1 and 7 days after install | Data | Both retention metrics depend on this definition | 0 | A different meaning would change how the primary result is read | Untested. Phase 1: review the Kaggle description and inspect the flag values for consistency. The exact operational definition cannot be fully verified from the dataset alone | Taofeek Salami |
+| A-006 | `sum_gamerounds` covers the same 14-day window for every player | Data | The guardrail comparison depends on it | 0 | Unequal windows would make the game-round comparison unreliable | Untested. Phase 1: check against the Kaggle description. The window cannot be established from the data alone | Taofeek Salami |
+| A-007 | The decision rule uses δ = 0 | Analytical | No business information supports a specific threshold | 0 | If the whole 95% interval lies above zero, the rule leads to "move the gate" even when the improvement is very small | Not testable. A pre-specified decision, not an empirical claim. δ = 0 reflects the absence of a justified business threshold, not a validated minimum meaningful effect. The observed difference, its confidence interval and the minimum detectable difference are reported so readers can judge practical importance | Taofeek Salami |
+| A-008 | The Kaggle description of the game (gates, new installs during the test) is accurate | Data | The business context and population definition rely on it | 0 | If inaccurate, the context and population description in the write-up would need correcting | Untested. Phase 1: compare the data fields and observed values with the Kaggle description, and record which claims the data supports and which rely on the source documentation only | Taofeek Salami |
 
 ---
 
-# Assumption Register
+# High-Risk Assumptions
 
-| ID | Assumption | Reason | Phase | Potential Impact | Validation Status | Owner |
-|----|------------|--------|-------|------------------|-------------------|-------|
-| A-001 | | | | | Untested | |
+| ID | Reason for High Risk | Mitigation Plan |
+|----|----------------------|-----------------|
+| A-002 | All causal wording depends on it, and the assignment method is not documented | Run the sample ratio test as a diagnostic before interpreting the effect. Investigate any material imbalance. A passed test does not establish random assignment, so causal statements are qualified while the assignment method remains undocumented |
+| A-005 | The primary metric is built on this definition | Inspect the flag values and their consistency in Phase 1; state the definition and its source in the findings |
+| A-007 | It sets the decision threshold, so a statistically positive result is not by itself evidence of a worthwhile improvement | Report the size of the difference, its confidence interval and the minimum detectable difference alongside the decision |
 
 ---
 
@@ -38,89 +34,7 @@ Every assumption should explain **why it was necessary** and **how it may influe
 | Validated | Evidence supports the assumption within the scope of the project. |
 | Rejected | Evidence indicates the assumption was incorrect. |
 | No Longer Applicable | The assumption is no longer relevant due to changes in scope or analysis. |
-
----
-
-# High-Risk Assumptions
-
-List assumptions that could materially affect analytical conclusions or business recommendations if they prove incorrect.
-
-| Assumption | Reason for High Risk | Mitigation Plan |
-|------------|----------------------|-----------------|
-| | | |
-
----
-
-# Business Assumptions
-
-Record assumptions related to business processes, stakeholder expectations, or operational context.
-
-| Assumption | Justification | Validation Status |
-|------------|---------------|-------------------|
-| | | |
-
----
-
-# Data Assumptions
-
-Record assumptions made about the data itself.
-
-Examples may include:
-
-- Data completeness
-- Data accuracy
-- Representativeness
-- Timestamp reliability
-- Business rule consistency
-
-| Assumption | Justification | Validation Status |
-|------------|---------------|-------------------|
-| | | |
-
----
-
-# Analytical Assumptions
-
-Record assumptions introduced by analytical methods.
-
-Examples may include:
-
-- Statistical assumptions
-- Modelling assumptions
-- Forecasting assumptions
-- Experimental assumptions
-
-| Assumption | Method | Validation Status |
-|------------|--------|-------------------|
-| | | |
-
----
-
-# Assumptions Requiring Future Validation
-
-Identify assumptions that cannot currently be tested but should be revisited later.
-
-| Assumption | Why Validation Is Deferred | Planned Validation |
-|------------|----------------------------|--------------------|
-| | | |
-
----
-
-# Relationship to Other Documentation
-
-Assumptions should be consistent with:
-
-- Project Information
-- Cleaning Log
-- Data Dictionary
-- Phase Documentation
-- Analytical Report
-
----
-
-# Notes
-
-Record additional context, discussions, or decisions related to project assumptions.
+| Not testable | A pre-specified decision or framing that data cannot confirm or reject. Recorded for transparency. |
 
 ---
 
@@ -133,5 +47,3 @@ Before completing the project, confirm:
 - [ ] Validation status has been updated where applicable.
 - [ ] High-risk assumptions have been identified.
 - [ ] Business recommendations acknowledge any unresolved assumptions.
-
----
