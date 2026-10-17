@@ -4,100 +4,58 @@ Project      : Cookie Cats A/B Test
 Repository   : cookie-cats-ab-test
 Author       : Taofeek Salami
 Date Created : 2026-10-15
-Last Updated : 2026-10-15
+Last Updated : 2026-10-17
 
 Phase        : Phase 0 - Scoping & Project Setup
-Purpose      : Create the database or dataset and any required tables.
-Status       : Draft
+Purpose      : Create the BigQuery dataset that holds every project table.
+Status       : Complete
 
 Business Question
 -----------------
-To be defined in Phase 0
+Does moving the first gate from level 30 to level 40 change player retention
+among players who installed the game during the test?
 
 Notes
 -----
-- Describe the purpose of this script.
-- Document important assumptions.
-- Record dependencies where applicable.
-
+- Run once in the BigQuery console with your own project selected. It does
+  the same as: bq --location=US mk --dataset YOUR_PROJECT_ID:cookie_cats
+- IF NOT EXISTS makes the script safe to re-run; it changes nothing if the
+  dataset already exists.
+- Tables are not created here. The raw table is created and replaced by the
+  load job in notebooks/01_data_loading.ipynb, which defines its schema, so
+  the schema is kept in one place.
 ===============================================================================
 */
 
--- =============================================================================
--- Environment / Database
--- =============================================================================
-
--- Example:
--- USE database_name;
 
 -- =============================================================================
--- Section 1 — Data Preparation
+-- Section 1 — Dataset
 -- =============================================================================
 
 -- Purpose:
--- Describe what this section accomplishes.
+-- Create the dataset (BigQuery's equivalent of a database) in the US location.
+-- All tables in the project must be in the same location.
 
--- SQL goes here.
-
-
-
--- =============================================================================
--- Section 2 — Analysis
--- =============================================================================
-
--- Purpose:
--- Describe the analytical objective.
-
--- SQL goes here.
-
-
-
--- =============================================================================
--- Section 3 — Validation
--- =============================================================================
-
--- Purpose:
--- Verify intermediate or final outputs.
-
--- Examples:
--- • Row counts
--- • Duplicate checks
--- • Missing values
--- • KPI reconciliation
-
--- SQL goes here.
-
-
-
--- =============================================================================
--- Section 4 — Output
--- =============================================================================
-
--- Purpose:
--- Produce the final result used for reporting, dashboards, or downstream analysis.
-
--- SQL goes here.
-
+CREATE SCHEMA IF NOT EXISTS cookie_cats
+OPTIONS (
+  location = 'US',
+  description = 'Cookie Cats A/B test: raw and cleaned tables for the gate placement analysis'
+);
 
 
 -- =============================================================================
 -- Assumptions
 -- =============================================================================
 
--- •
--- •
--- •
-
+-- • The project runs in the BigQuery sandbox (no billing account linked).
 
 
 -- =============================================================================
 -- Limitations
 -- =============================================================================
 
--- •
--- •
--- •
-
+-- • In the sandbox, tables expire after 60 days. Re-run
+--   notebooks/01_data_loading.ipynb to recreate the raw table.
 
 
 -- =============================================================================
@@ -107,9 +65,7 @@ Notes
 -- README.md
 -- PROJECT_INFO.md
 -- docs/phase_00_setup.md
--- docs/data_dictionary.md
--- docs/assumption_register.md
--- docs/cleaning_log.md
+-- notebooks/01_data_loading.ipynb
 
 /*
 ===============================================================================

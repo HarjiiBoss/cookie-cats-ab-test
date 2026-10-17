@@ -72,16 +72,33 @@ The file has no revenue or purchase column and no level-reached column. The anal
 
 # Initial Data Profiling
 
-Record the initial characteristics of the dataset before any modifications.
+Profiled with `sql/01_data_preparation.sql` (Section 1) on the raw table, before any changes.
 
 | Item | Value |
 |------|-------|
-| Row Count | |
-| Column Count | |
-| Observation Unit | |
-| Time Coverage | |
-| Target Variable | |
-| Primary Identifier | |
+| Row Count | 90,189 |
+| Column Count | 5 |
+| Observation Unit | One player (90,189 distinct `userid` values) |
+| Time Coverage | Not recorded in the data. There are no date or timestamp columns |
+| Target Variable | `retention_7` (primary), `retention_1` (secondary) |
+| Primary Identifier | `userid` |
+| Group Sizes | `gate_30`: 44,700. `gate_40`: 45,489. The sample ratio test is run in Phase 3 |
+
+## Game Rounds Distribution (all players)
+
+| Statistic | Value |
+|-----------|-------|
+| Minimum | 0 |
+| 25th percentile | 5 |
+| Median | 16 |
+| Mean | 51.87 |
+| 75th percentile | 51 |
+| 95th percentile | 221 |
+| 99th percentile | 493 |
+| Maximum | 49,854 |
+| Players with 0 rounds | 3,994 |
+
+The mean is above the 75th percentile, so the distribution is strongly right-skewed. The maximum is about 100 times the 99th percentile. Both the maximum and the zero-round players are investigated before any cleaning decision.
 
 ---
 
@@ -97,53 +114,51 @@ Document the major variable groups within the dataset.
 
 # Data Quality Assessment
 
-Evaluate data quality before making any changes.
-
 ## Missing Values
 
-Summary:
+Summary: No missing or blank values in any column (query 1.2).
 
 ---
 
 ## Duplicate Records
 
-Summary:
+Summary: No duplicate players. 90,189 rows and 90,189 distinct `userid` values (query 1.1). No player appears in both versions (query 1.5).
 
 ---
 
 ## Invalid Values
 
-Summary:
+Summary: Every `userid` and `sum_gamerounds` value converts to a whole number (query 1.3). The retention flags contain only `TRUE` and `FALSE` (query 1.4).
 
 ---
 
 ## Outliers
 
-Summary:
+Summary: `sum_gamerounds` has a maximum of 49,854 against a 99th percentile of 493. Under investigation (Section 2 of `sql/01_data_preparation.sql`); no action taken yet.
 
 ---
 
 ## Inconsistent Categories
 
-Summary:
+Summary: None. `version` contains only `gate_30` and `gate_40`; the retention flags contain only `TRUE` and `FALSE`, with no case or spacing variants (query 1.4).
 
 ---
 
 ## Timestamp Integrity
 
-Summary:
+Summary: Not applicable. The data contains no dates or timestamps, so install dates, the test period and the timing of retention cannot be checked.
 
 ---
 
 ## Potential Data Leakage
 
-Summary:
+Summary: To be assessed in step 4, with the retention flag combinations.
 
 ---
 
 ## Other Data Quality Issues
 
-Summary:
+Summary: 3,994 players recorded 0 game rounds. Under investigation; no action taken yet.
 
 ---
 
