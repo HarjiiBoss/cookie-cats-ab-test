@@ -39,10 +39,26 @@ It is to understand the evidence available for later analysis.
 | File | `data/raw/cookie_cats.csv` (not committed) |
 | Size | 2.7 MB |
 | SHA-256 | `9f53027065840672e77303281289988371d4a6b67c7dcd3bd4e6306a2a263dc8` |
-| Lines | 90,189 including the header (90,188 data rows, to be confirmed by the BigQuery load) |
+| Rows | 90,189 data rows plus a header line. Confirmed by `awk` (90,190 records) and by the BigQuery load (90,189 rows, header not loaded) |
 | File timestamp | 2019-10-28. This is the file's own timestamp from the download, not the date of the test |
 
+`wc -l` reports 90,189 lines because the file has no newline after its last row, so it counts one line fewer than the file contains.
+
 Anyone reproducing this project can run `shasum -a 256 data/raw/cookie_cats.csv` and compare the result with the value above to confirm they have the same file. The raw file is treated as read-only and is never opened or saved in a spreadsheet application.
+
+---
+
+## Raw BigQuery Table
+
+| Item | Value |
+|------|-------|
+| Table | `cookie_cats.raw_cookie_cats` |
+| Created by | `notebooks/01_data_loading.ipynb` (load job; re-running replaces the table) |
+| Rows | 90,189 (header not loaded as data) |
+| Schema | `userid`, `version`, `sum_gamerounds`, `retention_1`, `retention_7`, all `STRING` |
+| Load settings | Explicit schema, no type detection, no bad records allowed |
+
+All columns are stored as text, so the values match the file exactly. Types are checked and applied in SQL in the next steps. Tables in the BigQuery sandbox expire after 60 days, so the notebook is the way to recreate this table.
 
 ---
 
