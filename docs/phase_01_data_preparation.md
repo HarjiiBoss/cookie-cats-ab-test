@@ -134,7 +134,7 @@ Summary: Every `userid` and `sum_gamerounds` value converts to a whole number (q
 
 ## Outliers
 
-Summary: `sum_gamerounds` has a maximum of 49,854 against a 99th percentile of 493. Under investigation (Section 2 of `sql/01_data_preparation.sql`); no action taken yet.
+Summary: One player in `gate_30` has 49,854 game rounds; the next highest is 2,961 (queries 2.1, 2.2). The value is kept and flagged with `is_extreme_gamerounds`. Above the 99th percentile (493) there are 898 players, with values rising steadily to 2,961; these are not treated as outliers.
 
 ---
 
@@ -152,23 +152,28 @@ Summary: Not applicable. The data contains no dates or timestamps, so install da
 
 ## Potential Data Leakage
 
-Summary: To be assessed in step 4, with the retention flag combinations.
+Summary: No leakage into the outcome. `sum_gamerounds` was recorded after players were assigned to a version, so it is an outcome of the test, not a player characteristic. Splitting retention by game-round bands in Phase 2 is descriptive only, because the bands themselves may differ between versions.
 
 ---
 
 ## Other Data Quality Issues
 
-Summary: 3,994 players recorded 0 game rounds. Under investigation; no action taken yet.
+Summary: 3,994 players (4.43%) recorded 0 game rounds; kept and flagged with `is_zero_gamerounds`. Of these, 111 are marked as retained at day 1, day 7 or both (query 2.3), which does not fully agree with a "came back and played" definition of retention. 26,971 players are retained at day 1 but not day 7 (query 2.4), so `retention_7` does not include day 1.
 
 ---
 
 # Cleaning Decisions
 
-Summarize the major cleaning activities performed during this phase.
-
 | Activity | Reason | Related Documentation |
 |----------|--------|-----------------------|
-| | | Cleaning Log |
+| Converted column types (text to INT64 and BOOL) | All values convert without loss | Cleaning Log |
+| Flagged one extreme `sum_gamerounds` value (> 10,000) | Isolated value; kept for the main analysis, excluded in the sensitivity check | Cleaning Log |
+| Flagged 3,994 zero-round players | Named in the charter's sensitivity check | Cleaning Log |
+| No rows removed, no values changed | No evidence of invalid records | Cleaning Log |
+
+Validation (Section 4 of `sql/01_data_preparation.sql`): the raw and clean tables match on row count, distinct players, group sizes, day-1 and day-7 retained counts, and total game rounds (4,678,325). The clean table has no NULL values, the expected types, 1 player flagged as extreme and 3,994 flagged with zero rounds.
+
+Clean table: `cookie_cats.clean_cookie_cats`, 90,189 rows, built by Section 3 of `sql/01_data_preparation.sql`.
 
 ---
 
