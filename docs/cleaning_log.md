@@ -85,9 +85,11 @@ None. Two flag columns were added: `is_extreme_gamerounds` and `is_zero_gameroun
 
 # Validation
 
-- [ ] Row counts reconciled
-- [ ] Record counts verified
-- [ ] Data types validated
-- [ ] Business rules rechecked
-- [ ] Summary statistics compared before and after cleaning
-- [ ] Cleaning decisions reflected in the Data Dictionary
+Checked on 2026-10-17 with Section 4 of `sql/01_data_preparation.sql`.
+
+- [x] Row counts reconciled (90,189 raw and clean; query 4.1)
+- [x] Record counts verified (90,189 distinct `userid` in both tables; query 4.1)
+- [x] Data types validated (query 4.2)
+- [x] Business rules rechecked (group sizes, retained counts and flag counts as expected; queries 4.1, 4.3)
+- [x] Summary statistics compared before and after cleaning (total game rounds 4,678,325 in both tables; query 4.1)
+- [ ] Cleaning decisions reflected in the Data Dictionary (step 7)
