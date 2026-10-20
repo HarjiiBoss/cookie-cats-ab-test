@@ -72,7 +72,7 @@ Profiled with `sql/01_data_preparation.sql` (Section 1) on the raw table, before
 | Time Coverage | Not recorded in the data. There are no date or timestamp columns |
 | Target Variable | `retention_7` (primary), `retention_1` (secondary) |
 | Primary Identifier | `userid` |
-| Group Sizes | `gate_30`: 44,700. `gate_40`: 45,489. The sample ratio test is run in Phase 4 |
+| Group Sizes | `gate_30`: 44,700. `gate_40`: 45,489. The sample ratio test is run at the start of Phase 2 |
 
 ## Game Rounds Distribution (all players)
 

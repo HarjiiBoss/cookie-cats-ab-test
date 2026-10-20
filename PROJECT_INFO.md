@@ -70,7 +70,9 @@ For the retention metrics, the formal hypotheses are H₀: p₃₀ = p₄₀ and
 
 # Decision Rules
 
-Set before any data was examined.
+# Decision Rules
+
+Set before any data was examined, except the sample ratio rule (see below).
 
 **Significance level:** α = 0.05, two-sided. Statistical significance is reported together with the size of the difference and its 95% confidence interval.
 
@@ -85,6 +87,8 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 | Collect more evidence | The interval includes 0: the data cannot distinguish the two versions |
 
 "Collect more evidence" does not mean the versions have the same retention. It means this sample cannot tell them apart.
+
+**Sample ratio test:** Run at the start of Phase 2, before retention or game rounds are compared by version. A chi-square goodness-of-fit test compares the observed group sizes with a 50/50 split (assumption A-009). If p < 0.001, comparisons between versions are paused and the mismatch is investigated and reported as a validity problem. A result at or above 0.001 means no evidence of a mismatch; it does not show that assignment was random. This rule was added on 2026-10-20, after the group sizes had been seen in Phase 1 profiling but before the test was calculated. The 0.001 threshold is the value commonly used for this check in industry experimentation, not one chosen for this dataset.
 
 **Guardrail:** Total game rounds is exploratory. Differences between versions are reported and interpreted alongside the retention results but do not block the decision automatically. The data does not show what a decline in game rounds costs the business, so no blocking threshold is set.
 
@@ -168,9 +172,9 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 # Planned Analytical Approach
 
 - **Phase 1:** keep the downloaded file unchanged in `data/raw/`, load it into a raw BigQuery table, profile it, check data quality, write cleaning results to a separate table, and explore
-- **Phase 2:** describe retention and game rounds by version, without causal wording
+- **Phase 2:** run the sample ratio test first, then describe retention and game rounds by version, without causal wording
 - **Phase 3:** select and justify the statistical methods before running them, including the test and interval method for 7-day retention and the multiple-comparison correction for 1-day retention
-- **Phase 4:** sample ratio test as a diagnostic, test of 7-day retention with a 95% confidence interval, 1-day retention with the chosen correction, an exploratory comparison of game rounds, robustness checks, and the minimum detectable difference. Robustness checks are reported whatever their result and do not replace the main analysis
+- **Phase 4:** test of 7-day retention with a 95% confidence interval, 1-day retention with the chosen correction, an exploratory comparison of game rounds, robustness checks, and the minimum detectable difference. Robustness checks are reported whatever their result and do not replace the main analysis
 - **Phase 5:** Tableau dashboard, executive summary and final README
 
 The minimum detectable difference (the smallest effect this sample could reliably detect) is reported separately from the minimum effect of interest (δ = 0, set in Decision Rules). They answer different questions.
@@ -224,7 +228,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 
 | Risk | Potential Impact | Mitigation |
 |------|------------------|------------|
-| Players were not randomly assigned | A difference between versions could not be read as caused by the gate | Sample ratio test in Phase 4; conclusions qualified if assignment cannot be supported |
+| Players were not randomly assigned | A difference between versions could not be read as caused by the gate | Sample ratio test at the start of Phase 2; conclusions qualified if assignment cannot be supported |
 | No level-reached column | Players who never met the gate are included, which adds noise and makes a real effect harder to detect | All players are analysed (intent-to-treat); minimum detectable difference reported in Phase 4 |
 | No revenue column | The analysis cannot say anything about monetisation | Confirmed in Phase 1; stated as a limitation for the monetisation team |
 | Game rounds are skewed with extreme values | Mean-based comparisons could mislead | Method chosen in Phase 3 accounts for skew; sensitivity rerun without extreme and zero-round players |
@@ -247,7 +251,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 | Assumption | Reason | Validation Planned |
 |------------|--------|--------------------|
 | Stakeholders are modelled on a typical mobile game studio | The dataset is public and has no real client | None possible. Stated in the README as a portfolio framing |
-| Players were randomly assigned to gate_30 or gate_40 | Needed for a causal reading of any difference | Indirect only: sample ratio test in Phase 4. The assignment method is not documented |
+| Players were randomly assigned to gate_30 or gate_40 | Needed for a causal reading of any difference | Indirect only: sample ratio test in Phase 2. The assignment method is not documented |
 | Each row is one unique player | Retention rates divide by the number of players | Phase 1: compare row count with distinct `userid` count |
 | Each player stayed in one version for the whole test | A player seeing both versions would blur the comparison | Phase 1: check that no `userid` appears in both versions |
 | `retention_1` and `retention_7` mean the player played 1 and 7 days after install | Both retention metrics depend on this definition | Phase 1: check values. The exact definition comes from the Kaggle description and cannot be fully verified from the data |
@@ -308,3 +312,4 @@ Not verifiable from the data (documentation-based only):
 | 2026-10-16 | 1.1 | Phase 0 complete: business question, stakeholders, hypotheses, metrics, decision rules (δ = 0), scope, risks, constraints, assumptions and dependencies defined. |
 | 2026-10-20 | 1.2 | Phase 1 complete: data limitations confirmed (no revenue, level or date columns), retention and game-round assumptions updated with Phase 1 evidence, dependencies and risks updated. |
 | 2026-10-20 | 1.3 | Phases renumbered 0 to 5 to match Playbook v3.2: Analytical Method Selection (formerly 2.5) is Phase 3, Advanced Analytics is Phase 4, Reporting is Phase 5. No decisions changed. |
+| 2026-10-20 | 1.4 | Sample ratio test moved from Phase 4 to the start of Phase 2, with its rule added to Decision Rules (50/50 expected split, alert at p < 0.001). Planned Analytical Approach, Known Risks and Initial Assumptions updated to match. |

@@ -39,7 +39,7 @@ Terms used in this project's documentation, code and findings. Definitions are w
 | Minimum effect of interest (δ) | Analytical | The smallest effect worth acting on | Set to 0 in Decision Rules |
 | Post-treatment variable | Analytical | A variable measured after assignment that the change may have affected | `sum_gamerounds` |
 | Right skew | Analytical | A distribution with most values low and a long tail of high values; the mean sits above the median | Game rounds: median 16, mean 51.87 |
-| Sample ratio test | Analytical | Checks whether group sizes match the expected split | Phase 4; a pass does not prove random assignment |
+| Sample ratio test | Analytical | Checks whether group sizes match the expected split | Start of Phase 2; a pass does not prove random assignment |
 | Sensitivity check | Analytical | Repeating an analysis with a different choice, such as excluding flagged players, to see if the conclusion changes | Does not replace the main analysis |
 | Significance level (α) | Analytical | The accepted false-positive rate | α = 0.05, two-sided |
 | Two-sided test | Analytical | A test that looks for a difference in either direction | All tests in this project |
