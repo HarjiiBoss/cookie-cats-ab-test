@@ -1,16 +1,6 @@
 # Phase 1 — Data Loading, Cleaning & Exploration
 
-> This document records all activities completed during **Phase 1 — Data Loading, Cleaning & Exploration**. The objective of this phase is to understand the available evidence, evaluate data quality, prepare the dataset for analysis, and generate initial hypotheses.
-
----
-
-# Phase Objective
-
-Understand the dataset before attempting to answer business questions.
-
-The purpose of exploratory work is **not** to produce business conclusions.
-
-It is to understand the evidence available for later analysis.
+This document records what was done and found during Phase 1. The project's question, metrics and decision rules are in [PROJECT_INFO.md](../PROJECT_INFO.md).
 
 ---
 
@@ -18,9 +8,9 @@ It is to understand the evidence available for later analysis.
 
 | Field | Value |
 |--------|-------|
-| Status | In progress |
+| Status | Complete |
 | Started | 2026-10-16 |
-| Completed | |
+| Completed | 2026-10-20 |
 | Owner | Taofeek Salami |
 | Branch | `phase-1-data-preparation` |
 
@@ -104,11 +94,15 @@ The mean is above the 75th percentile, so the distribution is strongly right-ske
 
 # Variable Summary
 
-Document the major variable groups within the dataset.
-
 | Variable Group | Description |
 |---------------|-------------|
-| | |
+| Identifier | `userid`: one row per player |
+| Assignment | `version`: `gate_30` (control) or `gate_40` (treatment) |
+| Engagement outcome | `sum_gamerounds`: game rounds played after install, recorded after assignment |
+| Retention outcomes | `retention_1`, `retention_7`: whether the player returned at day 1 and day 7 |
+| Analysis flags (clean table only) | `is_extreme_gamerounds`, `is_zero_gamerounds`: mark players for the Phase 3 sensitivity check |
+
+Full definitions are in [data_dictionary.md](data_dictionary.md).
 
 ---
 
@@ -179,12 +173,10 @@ Clean table: `cookie_cats.clean_cookie_cats`, 90,189 rows, built by Section 3 of
 
 # Supporting Documentation Updated
 
-Confirm supporting documentation has been maintained throughout this phase.
-
-- [ ] Data Dictionary
-- [ ] Cleaning Log
-- [ ] Assumption Register
-- [ ] Project Glossary
+- [x] Data Dictionary
+- [x] Cleaning Log
+- [x] Assumption Register
+- [x] Project Glossary
 
 ---
 
@@ -242,67 +234,64 @@ These guide later phases and are not conclusions.
 
 # Related Documentation
 
-- Project Information
-- Data Dictionary
-- Cleaning Log
-- Assumption Register
-- Project Glossary
+- [PROJECT_INFO.md](../PROJECT_INFO.md)
+- [data_dictionary.md](data_dictionary.md)
+- [cleaning_log.md](cleaning_log.md)
+- [assumption_register.md](assumption_register.md)
+- [project_glossary.md](project_glossary.md)
+- `sql/01_data_preparation.sql`, `notebooks/01_data_loading.ipynb`, `notebooks/02_cleaning_eda.ipynb`
 
 ---
 
 # Phase Deliverables
 
-- [ ] Clean dataset
-- [ ] Data Dictionary updated
-- [ ] Cleaning Log updated
-- [ ] Assumption Register updated
-- [ ] EDA completed
-- [ ] Initial observations documented
-- [ ] Initial hypotheses documented
+- [x] Clean dataset (`cookie_cats.clean_cookie_cats`)
+- [x] Data Dictionary updated
+- [x] Cleaning Log updated
+- [x] Assumption Register updated
+- [x] EDA completed
+- [x] Initial observations documented
+- [x] Initial hypotheses documented
 
 ---
 
 # Exit Checklist
 
-Proceed to **Phase 2 — Business Analysis** only when:
-
 ## Data Understanding
 
-- [ ] Dataset fully profiled
-- [ ] Variables understood
-- [ ] Major business entities identified
+- [x] Dataset fully profiled
+- [x] Variables understood
+- [x] Major business entities identified (players and the two test groups)
 
 ---
 
 ## Data Quality
 
-- [ ] Missing values assessed
-- [ ] Duplicate records assessed
-- [ ] Invalid values investigated
-- [ ] Outliers reviewed
-- [ ] Timestamp integrity verified
+- [x] Missing values assessed
+- [x] Duplicate records assessed
+- [x] Invalid values investigated
+- [x] Outliers reviewed
+- [x] Timestamp integrity verified (not applicable: the data has no dates or timestamps)
 
 ---
 
 ## Cleaning
 
-- [ ] Cleaning decisions documented
-- [ ] Raw data preserved
-- [ ] Processed dataset created
+- [x] Cleaning decisions documented
+- [x] Raw data preserved
+- [x] Processed dataset created
 
 ---
 
 ## Documentation
 
-- [ ] Data Dictionary updated
-- [ ] Cleaning Log complete
-- [ ] Assumption Register updated
-- [ ] Phase documentation complete
+- [x] Data Dictionary updated
+- [x] Cleaning Log complete
+- [x] Assumption Register updated
+- [x] Phase documentation complete
 
 ---
 
 # Phase Outcome
 
-Summarize the overall condition of the dataset, the major findings from exploratory work, and confirm readiness to proceed to **Phase 2 — Business Analysis**.
-
----
+The data is complete and consistent: 90,189 players, one row each, with no missing, duplicate or invalid values. The clean table keeps every player, applies column types and adds two flags for the sensitivity check, and it reconciles exactly with the raw table. Exploration showed heavily skewed game rounds and a strong association between game rounds and retention, which may partly come from how the two were measured. The data cannot show which players reached the gate, the exact retention definition or the test period; these limits are recorded in the assumption register and carry into Phase 2.

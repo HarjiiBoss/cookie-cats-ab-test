@@ -2,7 +2,7 @@
 
 Analysis of a mobile game A/B test to decide where the first progression gate should sit. Built with the Data Analysis Playbook v3.1.
 
-> **Status:** Phase 0 complete. Phase 1 (data loading, cleaning and exploration) is next; findings will be added when the project is complete.
+> **Status:** Phase 1 complete (data loaded, profiled, cleaned and explored). Phase 2 (business analysis) is next; findings will be added when the project is complete.
 
 ---
 
@@ -33,10 +33,10 @@ This is a portfolio project on public learning data. The stakeholders are modell
 
 | Item | Details |
 |------|---------|
-| Source | Kaggle: `yufengsui/mobile-games-ab-testing` |
-| Expected contents (per the Kaggle description) | Player ID, assigned version (gate_30 or gate_40), game rounds played, and 1-day and 7-day retention flags. Row uniqueness and field definitions are checked in Phase 1 |
-| Licence | To be confirmed in Phase 1 |
-| Rows, columns, time period | To be recorded in Phase 1 |
+| Source | Kaggle: `yufengsui/mobile-games-ab-testing`, originally from DataCamp project 184 |
+| Contents | One row per player: `userid`, `version` (`gate_30` or `gate_40`), `sum_gamerounds`, `retention_1`, `retention_7`. No revenue, level or date columns |
+| Licence | Listed as Unknown on Kaggle. The data is not redistributed here; download it from the source |
+| Size | 90,189 players, 5 columns. The test period is not recorded in the data |
 
 The data is not stored in this repository. See Reproducibility for how to download it.
 
@@ -45,7 +45,7 @@ The data is not stored in this repository. See Reproducibility for how to downlo
 # Progress
 
 - [x] Phase 0 — Scoping & Project Setup
-- [ ] Phase 1 — Data Loading, Cleaning & Exploration
+- [x] Phase 1 — Data Loading, Cleaning & Exploration
 - [ ] Phase 2 — Business Analysis
 - [ ] Phase 2.5 — Analytical Method Selection
 - [ ] Phase 3 — Advanced Analytics & Modelling
@@ -73,8 +73,16 @@ Requirements: Python 3.13, the Google Cloud CLI, and a Google account.
    bq --location=US mk --dataset YOUR_PROJECT_ID:cookie_cats
 ```
 3. Copy `.env.example` to `.env` and fill in your project ID.
-4. Download the dataset from Kaggle into `data/raw/`. Exact steps are added in Phase 1.
-5. Run the notebooks in `notebooks/` in numbered order. Notebook names, prerequisites and execution instructions are added here as each phase is completed.
+4. Download the dataset from the Kaggle page (`yufengsui/mobile-games-ab-testing`), extract `cookie_cats.csv` into `data/raw/`, and check it is the same file used here:
+   ```bash
+   shasum -a 256 data/raw/cookie_cats.csv
+   ```
+   The result should be `9f53027065840672e77303281289988371d4a6b67c7dcd3bd4e6306a2a263dc8`.
+5. Run `notebooks/01_data_loading.ipynb`. It loads the CSV into the BigQuery table `cookie_cats.raw_cookie_cats`.
+6. In the BigQuery console, with your project selected, run Section 3 of `sql/01_data_preparation.sql` to build `cookie_cats.clean_cookie_cats`, then Section 4 to check it against the raw table. Sections 1 and 2 are the profiling and investigation queries.
+7. Run `notebooks/02_cleaning_eda.ipynb` for the exploratory analysis.
+
+Later phases add their notebooks and scripts to this list.
 
 No service account key file is used; authentication relies on your own Google login.
 
@@ -108,6 +116,10 @@ cookie-cats-ab-test/
 |----------|---------|
 | [PROJECT_INFO.md](PROJECT_INFO.md) | Project charter: question, metrics, decision rules, scope, risks |
 | [docs/phase_00_setup.md](docs/phase_00_setup.md) | Phase 0 record: setup, issues and exit checklist |
+| [docs/phase_01_data_preparation.md](docs/phase_01_data_preparation.md) | Phase 1 record: data acquisition, profiling, cleaning and exploration |
+| [docs/data_dictionary.md](docs/data_dictionary.md) | Definition of every column |
+| [docs/cleaning_log.md](docs/cleaning_log.md) | Every change between the raw and clean tables |
+| [docs/project_glossary.md](docs/project_glossary.md) | Terms used in the project |
 | [docs/assumption_register.md](docs/assumption_register.md) | Assumptions and their validation status |
 | [docs/security_notes.md](docs/security_notes.md) | Security checks and data handling |
 | [docs/documentation_index.md](docs/documentation_index.md) | Index of all project documents |
