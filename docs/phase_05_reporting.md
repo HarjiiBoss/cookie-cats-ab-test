@@ -1,6 +1,6 @@
-# Phase 4 — Reporting, Communication & Publication
+# Phase 5 — Reporting, Communication & Publication
 
-> This document records the preparation of all stakeholder-facing deliverables produced during **Phase 4 — Reporting, Communication & Publication**.
+> This document records the preparation of all stakeholder-facing deliverables produced during **Phase 5 — Reporting, Communication & Publication**.
 >
 > The objective of this phase is to transform validated analytical work into clear, trustworthy, and decision-ready communication tailored to the intended audience.
 >
@@ -14,7 +14,7 @@
 |--------|-------|
 | Project | Cookie Cats A/B Test |
 | Repository | cookie-cats-ab-test |
-| Phase | Phase 4 — Reporting, Communication & Publication |
+| Phase | Phase 5 — Reporting, Communication & Publication |
 | Status | Not Started |
 | Started | |
 | Completed | |
