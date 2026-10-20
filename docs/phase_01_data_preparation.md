@@ -190,79 +190,53 @@ Confirm supporting documentation has been maintained throughout this phase.
 
 # Exploratory Data Analysis (EDA)
 
+Notebook: `notebooks/02_cleaning_eda.ipynb`. All players are analysed together; the two versions are compared in Phase 2.
+
 ## Univariate Analysis
 
-Summarize key distributional characteristics.
-
--
-
--
-
--
+- 44.52% of players were retained at day 1 and 18.61% at day 7.
+- Game rounds are heavily right-skewed: median 16, mean 51.87, 3,708 players above 250 rounds. The largest group played 0–4 rounds.
 
 ---
 
 ## Bivariate Analysis
 
-Summarize important relationships identified between variables.
-
--
-
--
-
--
+- Retention flags: 46,437 players were retained at neither point, 13,182 at both, 26,971 at day 1 only and 3,599 at day 7 only.
+- Game rounds and retention: retention is higher in every successive game-round band. 7-day retention ranges from 0.7% (0 rounds, 3,994 players) to 95.6% (500 or more rounds, 860 players).
 
 ---
 
 ## Multivariate Analysis (if applicable)
 
-Summarize higher-order relationships explored during EDA.
-
--
-
--
-
--
+Not carried out in Phase 1. Comparisons between versions, including game-round bands by version, are part of Phase 2.
 
 ---
 
 # Initial Observations
 
-Record observations supported directly by the data.
-
-These observations should describe patterns rather than explain causes.
-
--
-
--
-
--
+- Retention and game rounds are strongly associated across all players.
+- Part of that association may come from measurement: if game rounds cover the 14 days after install, players who return have more days in which to play.
+- Game rounds are too skewed for comparisons based on means alone; the median and rank-based methods planned for Phase 2.5 are supported by the data.
+- Pandas and BigQuery give the same percentiles and counts for the clean table.
 
 ---
 
 # Initial Hypotheses
 
-Document hypotheses generated during exploration.
+These guide later phases and are not conclusions.
 
-These should guide later analysis and should **not** be presented as conclusions.
-
--
-
--
-
--
+- Any effect of gate placement can only reach players who progress far enough to meet the gate. The data has no level column, so this cannot be checked directly. If many players stop before level 30, an effect among those who reach the gate would be diluted across all players, which makes the minimum detectable difference in Phase 3 important for reading the result.
+- If gate placement affects how much players play, the distribution of game rounds may differ between versions. This is examined as the guardrail in Phase 2 and Phase 3.
 
 ---
 
 # Data Risks
 
-Identify risks that may influence interpretation or later modelling.
-
--
-
--
-
--
+- No level-reached column: the analysis cannot identify which players met the gate.
+- Retention definition is not fully confirmed (assumption A-005).
+- Game rounds and retention may be partly linked by how they were measured, so the association between them cannot be read as cause.
+- One extreme game-round value (49,854) affects means in `gate_30`; it is flagged for the sensitivity check.
+- No dates or timestamps: the test period and the timing of retention cannot be checked.
 
 ---
 
