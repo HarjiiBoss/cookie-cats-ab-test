@@ -10,7 +10,7 @@ This document records what was done and found during Phase 2. The business quest
 |--------|-------|
 | Status | In Progress |
 | Started | 2026-10-20 |
-| Completed | |
+| Completed | 2026-10-20 |
 | Owner | Taofeek Salami |
 | Branch | `phase-2-business-analysis` |
 
@@ -131,4 +131,4 @@ The distributions are similar. The higher gate_30 total comes from the single pl
 
 # Phase Outcome
 
-To be completed when the phase closes.
+The group split passed the sample ratio rule (p = 0.0086, above the 0.001 threshold), so the version comparisons went ahead, with the imbalance noted for Phase 4. Retention was lower for gate_40 at both points: 7-day retention was 18.20% against 19.02% (−0.82 percentage points) and 1-day retention 44.23% against 44.82% (−0.59 percentage points). Game-round distributions are similar, with medians of 16 and 17. These gaps are descriptive. Whether they are larger than chance would produce, and so which decision rule applies, is settled in Phase 4 using the methods selected in Phase 3.

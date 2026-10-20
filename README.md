@@ -2,7 +2,7 @@
 
 Analysis of a mobile game A/B test to decide where the first progression gate should sit. Built with the Data Analysis Playbook v3.1.
 
-> **Status:** Phase 1 complete (data loaded, profiled, cleaned and explored). Phase 2 (business analysis) is next; findings will be added when the project is complete.
+> **Status:** Phase 2 complete (sample ratio test and descriptive comparison of retention and game rounds by version). Phase 3 (method selection) is next; findings will be added when the project is complete.
 
 ---
 
@@ -46,7 +46,7 @@ The data is not stored in this repository. See Reproducibility for how to downlo
 
 - [x] Phase 0 — Scoping & Project Setup
 - [x] Phase 1 — Data Loading, Cleaning & Exploration
-- [ ] Phase 2 — Business Analysis
+- [x] Phase 2 — Business Analysis
 - [ ] Phase 3 — Analytical Method Selection
 - [ ] Phase 4 — Advanced Analytics & Modelling
 - [ ] Phase 5 — Reporting, Communication & Publication
@@ -81,6 +81,7 @@ Requirements: Python 3.13, the Google Cloud CLI, and a Google account.
 5. Run `notebooks/01_data_loading.ipynb`. It loads the CSV into the BigQuery table `cookie_cats.raw_cookie_cats`.
 6. In the BigQuery console, with your project selected, run Section 3 of `sql/01_data_preparation.sql` to build `cookie_cats.clean_cookie_cats`, then Section 4 to check it against the raw table. Sections 1 and 2 are the profiling and investigation queries.
 7. Run `notebooks/02_cleaning_eda.ipynb` for the exploratory analysis.
+8. Run `notebooks/03_business_analysis.ipynb`. It runs the sample ratio test and the descriptive queries from `sql/02_business_analysis.sql` (which can also be run section by section in the BigQuery console) and saves the two Phase 2 charts to `outputs/`.
 
 Later phases add their notebooks and scripts to this list.
 
@@ -117,6 +118,7 @@ cookie-cats-ab-test/
 | [PROJECT_INFO.md](PROJECT_INFO.md) | Project charter: question, metrics, decision rules, scope, risks |
 | [docs/phase_00_setup.md](docs/phase_00_setup.md) | Phase 0 record: setup, issues and exit checklist |
 | [docs/phase_01_data_preparation.md](docs/phase_01_data_preparation.md) | Phase 1 record: data acquisition, profiling, cleaning and exploration |
+| [docs/phase_02_business_analysis.md](docs/phase_02_business_analysis.md) | Phase 2 record: sample ratio test and descriptive comparison by version |
 | [docs/data_dictionary.md](docs/data_dictionary.md) | Definition of every column |
 | [docs/cleaning_log.md](docs/cleaning_log.md) | Every change between the raw and clean tables |
 | [docs/project_glossary.md](docs/project_glossary.md) | Terms used in the project |
