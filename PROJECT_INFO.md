@@ -70,8 +70,6 @@ For the retention metrics, the formal hypotheses are H₀: p₃₀ = p₄₀ and
 
 # Decision Rules
 
-# Decision Rules
-
 Set before any data was examined, except the sample ratio rule (see below).
 
 **Significance level:** α = 0.05, two-sided. Statistical significance is reported together with the size of the difference and its 95% confidence interval.
