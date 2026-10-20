@@ -15,10 +15,10 @@
 | Industry | Mobile Gaming |
 | Analytics Domain | Product Analytics |
 | Project Type | Portfolio Project |
-| Status | Phase 1 — Data Loading, Cleaning & Exploration |
+| Status | Phase 2 — Business Analysis |
 | Author | Taofeek Salami |
 | Date Created | 2026-10-15 |
-| Last Updated | 2026-10-16 |
+| Last Updated | 2026-10-20 |
 
 ---
 
@@ -98,7 +98,7 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 |-------------|------|--------------------|-----------------------|
 | Product team | Decision-maker | Move the first gate to level 40, keep it at level 30, or keep testing | A recommendation and how confident it is |
 | Game design team | Implements the gate placement | How level progression is set up if the gate moves | The size of the retention difference and what happened to game rounds |
-| Monetisation team | Affected by the change | Whether gate placement affects in-app purchases | A clear statement of what the analysis can and cannot say about revenue. This cannot be answered if the data has no revenue column (to confirm in Phase 1) |
+| Monetisation team | Affected by the change | Whether gate placement affects in-app purchases | A clear statement of what the analysis can and cannot say about revenue. The data has no revenue column (confirmed in Phase 1), so this question cannot be answered |
 
 ---
 
@@ -134,7 +134,7 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 
 ## Excluded
 
-- Revenue and in-app purchase effects (no revenue column is expected; to confirm in Phase 1)
+- Revenue and in-app purchase effects (the data has no revenue column)
 - Retention beyond day 7
 - Reasons why players stop playing, which the data does not record
 - Predictive modelling
@@ -150,8 +150,8 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 - [ ] Python notebooks
 - [ ] Tableau dashboard
 - [ ] Presentation notes
-- [ ] Data dictionary
-- [ ] Cleaning log
+- [x] Data dictionary
+- [x] Cleaning log
 - [ ] Assumption register
 - [ ] Project glossary
 
@@ -161,7 +161,7 @@ Let Δ = 7-day retention for gate_40 minus 7-day retention for gate_30, with a 9
 
 | Dataset | Source | Publisher/uploader | Refresh Frequency | Status |
 |----------|--------|--------------------|-------------------|--------|
-| Cookie Cats A/B test | Kaggle: `yufengsui/mobile-games-ab-testing` | Kaggle uploader: yufengsui. The original owner of the data is not stated on the listing | Static, single release | Identified. Download and licence check in Phase 1 |
+| Cookie Cats A/B test | Kaggle: `yufengsui/mobile-games-ab-testing`. The listing states the data comes from DataCamp project 184 (https://www.datacamp.com/projects/184) | Kaggle uploader: yufengsui. The original owner of the underlying data is not stated | Not specified on the listing. Treated as a single download, identified by its checksum | Licence checked: listed as Unknown. Download in progress |
 
 ---
 
@@ -192,7 +192,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 | What is measured? | Whether a player came back and played 7 days after installing |
 | Why does it matter? | It is the later of the two retention points in the data and the closer signal of whether players stay with the game |
 | How is it calculated? | Players with `retention_7` = TRUE divided by all players in the version |
-| What assumptions exist? | `retention_7` means the player played on day 7 after install. Whether it means exactly day 7 or any day up to day 7 is not stated (to confirm in Phase 1) |
+| What assumptions exist? | `retention_7` means the player returned around day 7 after install. Phase 1 showed it is not a running total from install (26,971 players are retained at day 1 but not day 7); whether it means exactly day 7 cannot be confirmed from the data (A-005) |
 | What are the limitations? | Records one point in time only. Includes players who never reached level 30 and never met a gate, which adds noise. Says nothing about revenue |
 | How will decisions change? | This metric decides between moving the gate, keeping it at level 30, or collecting more evidence, using the decision rules set in Phase 0 |
 
@@ -203,7 +203,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 | What is measured? | Whether a player came back and played 1 day after installing |
 | Why does it matter? | It shows whether any difference between versions appears early |
 | How is it calculated? | Players with `retention_1` = TRUE divided by all players in the version |
-| What assumptions exist? | `retention_1` means the player played on day 1 after install (to confirm in Phase 1) |
+| What assumptions exist? | `retention_1` means the player returned 1 day after install. The values are only `TRUE` and `FALSE`; the definition itself cannot be verified from the data (A-005) |
 | What are the limitations? | 1-day retention measures early retention, but its relationship to the gate placement may be limited because players may not have reached level 30 by that point. The dataset does not establish when individual players reached the gate |
 | How will decisions change? | It supports interpretation of the primary result. It does not decide the outcome on its own, and it is tested with a correction for multiple comparisons |
 
@@ -214,7 +214,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 | What is measured? | The number of game rounds a player played after installing |
 | Why does it matter? | It checks whether a change in gate placement is associated with less play |
 | How is it calculated? | `sum_gamerounds` per player, compared between versions using the method chosen in Phase 2.5. Reported with median and mean |
-| What assumptions exist? | The Kaggle description gives the window as the first 14 days after install. This is to be confirmed in Phase 1. If it cannot be established, the uncertainty is documented rather than assumed |
+| What assumptions exist? | The Kaggle description gives the window as the first 14 days after install. The data has no dates, so this could not be confirmed in Phase 1 and remains documentation-based (A-006) |
 | What are the limitations? | The observation window does not match the 1-day and 7-day retention windows. Counts are likely to be skewed. More rounds is not always better for the business, for example if players progress faster and reach later gates sooner |
 | How will decisions change? | It does not block the decision automatically. Any difference is reported and interpreted alongside the retention result, so the product team can weigh it. The data does not show what a decline in game rounds costs the business |
 
@@ -226,9 +226,9 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 |------|------------------|------------|
 | Players were not randomly assigned | A difference between versions could not be read as caused by the gate | Sample ratio test in Phase 3; conclusions qualified if assignment cannot be supported |
 | No level-reached column | Players who never met the gate are included, which adds noise and makes a real effect harder to detect | All players are analysed (intent-to-treat); minimum detectable difference reported in Phase 3 |
-| No revenue column | The analysis cannot say anything about monetisation | To be confirmed in Phase 1; stated as a limitation for the monetisation team |
+| No revenue column | The analysis cannot say anything about monetisation | Confirmed in Phase 1; stated as a limitation for the monetisation team |
 | Game rounds are skewed with extreme values | Mean-based comparisons could mislead | Method chosen in Phase 2.5 accounts for skew; sensitivity rerun without extreme and zero-round players |
-| BigQuery setup problems | Delays to Phase 1 | Analysis plan does not change if a local SQL database is used instead |
+| BigQuery setup problems | Delays to Phase 1 | Resolved: BigQuery was set up in Phase 0 and used throughout Phase 1 |
 
 ---
 
@@ -238,7 +238,7 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 - The test cannot be extended. If the result is "collect more evidence", this project can only recommend further testing, not run it.
 - Retention is recorded at day 1 and day 7 only, so retention curves are not possible.
 - No business cost data is available (value of a retained player, cost of the change).
-- The project runs in the BigQuery sandbox: no DML statements (`INSERT`, `UPDATE`, `DELETE`), tables expire after 60 days, and storage is capped at 10 GiB for the project's lifetime. Cleaning writes new tables with `CREATE TABLE ... AS SELECT`, and the Phase 1 notebook must be able to rebuild every table from the raw file.
+- The project runs in the BigQuery sandbox: no DML statements (`INSERT`, `UPDATE`, `DELETE`), tables expire after 60 days, and storage is capped at 10 GiB for the project's lifetime. Cleaning writes new tables with `CREATE TABLE ... AS SELECT`, and `notebooks/01_data_loading.ipynb` with Section 3 of `sql/01_data_preparation.sql` rebuild every table from the raw file.
 
 ---
 
@@ -255,6 +255,8 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 | The decision rule uses δ = 0 | No business information supports a specific threshold | Not testable. Stated in Decision Rules and in the findings |
 | The Kaggle description of the game (gates, new installs during the test) is accurate | The business context and population definition rely on it | Phase 1: check what the data can confirm; the rest stays documentation-based |
 
+
+This table is the Phase 0 snapshot. Validation results are tracked in [docs/assumption_register.md](docs/assumption_register.md).
 ---
 
 # Dependencies
@@ -265,14 +267,14 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 - [x] Python environment (`.venv`) with packages from `requirements.txt`
 - [x] BigQuery reachable from Python
 - [x] Tableau Public account available (used in Phase 4)
-- [ ] Cookie Cats data downloaded from Kaggle (Phase 1)
+- [x] Cookie Cats data downloaded from Kaggle (2026-10-16)
 
 ---
 
 # Planned Workflow
 
 - [x] Phase 0 — Scoping & Project Setup
-- [ ] Phase 1 — Data Loading, Cleaning & Exploration
+- [x] Phase 1 — Data Loading, Cleaning & Exploration
 - [ ] Phase 2 — Business Analysis
 - [ ] Phase 2.5 — Analytical Method Selection
 - [ ] Phase 3 — Advanced Analytics & Modelling
@@ -282,13 +284,19 @@ The minimum detectable difference (the smallest effect this sample could reliabl
 
 # Project Notes
 
-To confirm in Phase 1:
+Confirmed in Phase 1:
 
-- Whether the data has a revenue or purchase column
-- Whether the data has a level-reached column
-- What a gate does (wait or pay). Taken from the Kaggle dataset description, not from the data
-- Whether the records represent players who installed the game during the test. This comes from the Kaggle description and may not be verifiable from the data itself
-- The licence and usage terms of the Kaggle dataset
+- The data has no revenue or purchase column (file header, 2026-10-16)
+- The data has no level-reached column (file header, 2026-10-16)
+- The data has no dates or timestamps
+- The dataset licence is listed as Unknown on Kaggle; the listing names DataCamp project 184 as the source
+- `retention_7` is not a running total from install (query 2.4)
+
+Not verifiable from the data (documentation-based only):
+
+- What a gate does (wait or pay), from the Kaggle description
+- Whether the records represent players who installed the game during the test
+- The 14-day window for game rounds
 
 ---
 
@@ -298,3 +306,4 @@ To confirm in Phase 1:
 |------|---------|---------|
 | 2026-10-15 | 1.0 | Initial project charter created. |
 | 2026-10-16 | 1.1 | Phase 0 complete: business question, stakeholders, hypotheses, metrics, decision rules (δ = 0), scope, risks, constraints, assumptions and dependencies defined. |
+| 2026-10-20 | 1.2 | Phase 1 complete: data limitations confirmed (no revenue, level or date columns), retention and game-round assumptions updated with Phase 1 evidence, dependencies and risks updated. |
