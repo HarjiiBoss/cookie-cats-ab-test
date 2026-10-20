@@ -72,7 +72,7 @@ Profiled with `sql/01_data_preparation.sql` (Section 1) on the raw table, before
 | Time Coverage | Not recorded in the data. There are no date or timestamp columns |
 | Target Variable | `retention_7` (primary), `retention_1` (secondary) |
 | Primary Identifier | `userid` |
-| Group Sizes | `gate_30`: 44,700. `gate_40`: 45,489. The sample ratio test is run in Phase 3 |
+| Group Sizes | `gate_30`: 44,700. `gate_40`: 45,489. The sample ratio test is run in Phase 4 |
 
 ## Game Rounds Distribution (all players)
 
@@ -100,7 +100,7 @@ The mean is above the 75th percentile, so the distribution is strongly right-ske
 | Assignment | `version`: `gate_30` (control) or `gate_40` (treatment) |
 | Engagement outcome | `sum_gamerounds`: game rounds played after install, recorded after assignment |
 | Retention outcomes | `retention_1`, `retention_7`: whether the player returned at day 1 and day 7 |
-| Analysis flags (clean table only) | `is_extreme_gamerounds`, `is_zero_gamerounds`: mark players for the Phase 3 sensitivity check |
+| Analysis flags (clean table only) | `is_extreme_gamerounds`, `is_zero_gamerounds`: mark players for the Phase 4 sensitivity check |
 
 Full definitions are in [data_dictionary.md](data_dictionary.md).
 
@@ -208,7 +208,7 @@ Not carried out in Phase 1. Comparisons between versions, including game-round b
 
 - Retention and game rounds are strongly associated across all players.
 - Part of that association may come from measurement: if game rounds cover the 14 days after install, players who return have more days in which to play.
-- Game rounds are too skewed for comparisons based on means alone; the median and rank-based methods planned for Phase 2.5 are supported by the data.
+- Game rounds are too skewed for comparisons based on means alone; the median and rank-based methods planned for Phase 3 are supported by the data.
 - Pandas and BigQuery give the same percentiles and counts for the clean table.
 
 ---
@@ -217,8 +217,8 @@ Not carried out in Phase 1. Comparisons between versions, including game-round b
 
 These guide later phases and are not conclusions.
 
-- Any effect of gate placement can only reach players who progress far enough to meet the gate. The data has no level column, so this cannot be checked directly. If many players stop before level 30, an effect among those who reach the gate would be diluted across all players, which makes the minimum detectable difference in Phase 3 important for reading the result.
-- If gate placement affects how much players play, the distribution of game rounds may differ between versions. This is examined as the guardrail in Phase 2 and Phase 3.
+- Any effect of gate placement can only reach players who progress far enough to meet the gate. The data has no level column, so this cannot be checked directly. If many players stop before level 30, an effect among those who reach the gate would be diluted across all players, which makes the minimum detectable difference in Phase 4 important for reading the result.
+- If gate placement affects how much players play, the distribution of game rounds may differ between versions. This is examined as the guardrail in Phase 2 and Phase 4.
 
 ---
 

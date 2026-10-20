@@ -1,4 +1,4 @@
-# Phase 02 — Business Analysis
+# Phase 2 — Business Analysis
 
 > This document records the descriptive and diagnostic business analysis performed during **Phase 2 — Business Analysis** of the Data Analysis Playbook.
 >
@@ -173,7 +173,7 @@ Recommendations should remain descriptive unless stronger evidence exists.
 
 Identify business questions that could not be answered through descriptive analysis alone.
 
-These questions may justify progressing to **Phase 2.5 — Analytical Method Selection**.
+These questions may justify progressing to **Phase 3 — Analytical Method Selection**.
 
 -
 

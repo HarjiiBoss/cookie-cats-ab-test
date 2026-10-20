@@ -15,13 +15,13 @@
 | assumption_register.md | Analytical assumptions | ◐ Started (updated each phase) | 2026-10-20 |
 | cleaning_log.md | Data cleaning decisions | ☑ Complete | 2026-10-20 |
 | security_notes.md | Security and data handling | ◐ Started (updated each phase) | 2026-10-20 |
-| tableau_blueprint.md | Dashboard planning | ☐ Not Started (file created in Phase 4) | |
+| tableau_blueprint.md | Dashboard planning | ☐ Not Started (file created in Phase 5) | |
 | phase_00_setup.md | Phase 0 documentation | ☑ Complete | 2026-10-16 |
 | phase_01_data_preparation.md | Phase 1 documentation | ☑ Complete | 2026-10-20 |
 | phase_02_business_analysis.md | Phase 2 documentation | ☐ Not Started | |
-| phase_025_method_selection.md | Phase 2.5 documentation | ☐ Not Started | |
-| phase_03_advanced_analysis.md | Phase 3 documentation | ☐ Not Started | |
-| phase_04_reporting.md | Phase 4 documentation | ☐ Not Started | |
+| phase_03_method_selection.md | Phase 3 documentation | ☐ Not Started | |
+| phase_04_advanced_analysis.md | Phase 4 documentation | ☐ Not Started | |
+| phase_05_reporting.md | Phase 5 documentation | ☐ Not Started | |
 | executive_summary.md | Executive summary | ☐ Not Started | |
 | presentation_notes.md | Presentation planning | ☐ Not Started | |
 
@@ -51,20 +51,20 @@ Phase 2
     │
     └── phase_02_business_analysis.md
 
-Phase 2.5
-    │
-    └── phase_025_method_selection.md
-
 Phase 3
     │
-    └── phase_03_advanced_analysis.md
+    └── phase_03_method_selection.md
 
 Phase 4
+    │
+    └── phase_04_advanced_analysis.md
+
+Phase 5
     │
     ├── executive_summary.md
     ├── presentation_notes.md
     ├── tableau_blueprint.md
-    └── phase_04_reporting.md
+    └── phase_05_reporting.md
 ```
 
 ---
@@ -96,7 +96,7 @@ Phase 4
 
 ---
 
-## Phase 2.5
+## Phase 3
 
 - [ ] Analytical method selected
 - [ ] Method justification documented
@@ -104,7 +104,7 @@ Phase 4
 
 ---
 
-## Phase 3
+## Phase 4
 
 - [ ] Advanced analysis documented
 - [ ] Validation completed
@@ -113,7 +113,7 @@ Phase 4
 
 ---
 
-## Phase 4
+## Phase 5
 
 - [ ] Executive Summary completed
 - [ ] Dashboard documented

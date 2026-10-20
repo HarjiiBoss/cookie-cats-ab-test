@@ -1,8 +1,8 @@
-# Phase 3 — Advanced Analytics & Modelling
+# Phase 4 — Advanced Analytics & Modelling
 
-> This document records all advanced analytical work performed during **Phase 3 — Advanced Analytics & Modelling**.
+> This document records all advanced analytical work performed during **Phase 4 — Advanced Analytics & Modelling**.
 >
-> This phase should only begin after **Phase 2.5 — Analytical Method Selection** has demonstrated that descriptive and diagnostic analysis alone cannot adequately answer the business question.
+> This phase should only begin after **Phase 3 — Analytical Method Selection** has demonstrated that descriptive and diagnostic analysis alone cannot adequately answer the business question.
 >
 > Every analytical method used should be explicitly justified, validated, and interpreted within the limits of the available evidence.
 
@@ -14,7 +14,7 @@
 |--------|-------|
 | Project | Cookie Cats A/B Test |
 | Repository | cookie-cats-ab-test |
-| Phase | Phase 3 — Advanced Analytics & Modelling |
+| Phase | Phase 4 — Advanced Analytics & Modelling |
 | Status | Not Started |
 | Started | |
 | Completed | |

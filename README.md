@@ -47,9 +47,9 @@ The data is not stored in this repository. See Reproducibility for how to downlo
 - [x] Phase 0 — Scoping & Project Setup
 - [x] Phase 1 — Data Loading, Cleaning & Exploration
 - [ ] Phase 2 — Business Analysis
-- [ ] Phase 2.5 — Analytical Method Selection
-- [ ] Phase 3 — Advanced Analytics & Modelling
-- [ ] Phase 4 — Reporting, Communication & Publication
+- [ ] Phase 3 — Analytical Method Selection
+- [ ] Phase 4 — Advanced Analytics & Modelling
+- [ ] Phase 5 — Reporting, Communication & Publication
 
 ---
 
