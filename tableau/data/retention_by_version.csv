@@ -1,0 +1,5 @@
+metric,version,players,retained,retention_pct
+1-day retention,gate_30,44700,20034,44.82
+1-day retention,gate_40,45489,20119,44.23
+7-day retention,gate_30,44700,8502,19.02
+7-day retention,gate_40,45489,8279,18.2
