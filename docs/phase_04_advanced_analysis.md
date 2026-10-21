@@ -81,7 +81,7 @@ The primary result and the decision do not depend on the extreme player or the z
 - **Random assignment (A-002).** Reading the 7-day difference as caused by the gate position depends on random assignment, which cannot be confirmed from the data. The sample ratio test raised no alert (p = 0.0086 against a 0.001 threshold) but the split, 50.44% gate_40, is unusual for a true 50/50 allocation at the conventional 0.05 level.
 - **Retention definition (A-005).** The exact meaning of the retention flags is documentation-based.
 - **Players who never met the gate.** The data has no level column, so every player is included (intent-to-treat). Any effect among players who reached level 30 is averaged over all players.
-- **Effect size near the detection limit.** The point estimate (−0.82) is close to the minimum detectable difference (0.85), so the true effect may be nearer the lower end of the interval.
+- **Effect size near the detection limit.** The point estimate (−0.82) is close to the minimum detectable difference at 90% power (0.85). Statistically significant estimates near this limit tend to overstate the true effect, so the full interval (−1.33 to −0.31) is a safer summary than the point estimate.
 
 ---
 
@@ -109,4 +109,4 @@ The primary result and the decision do not depend on the extreme player or the z
 
 # Phase Outcome
 
-Under the Decision Rules, the outcome is to keep the first gate at level 30: 7-day retention was 0.82 percentage points lower for gate_40 (95% interval −1.33 to −0.31, p = 0.0016), and the result held under the bootstrap interval and all three sensitivity checks. 1-day retention was also lower for gate_40 but not statistically significant, and game rounds were very similar between versions. The causal reading depends on random assignment, which cannot be confirmed from the data, and the size of the effect is close to the smallest this sample could reliably detect.
+Under the Decision Rules, the outcome is to keep the first gate at level 30: 7-day retention was 0.82 percentage points lower for gate_40 (95% interval −1.33 to −0.31, p = 0.0016), and the result held under the bootstrap interval and all three sensitivity checks. 1-day retention was also lower for gate_40 but not statistically significant, and game rounds were very similar between versions. The causal reading depends on random assignment, which cannot be confirmed from the data, and the size of the effect is close to the smallest this sample was designed to detect with 90% power.
