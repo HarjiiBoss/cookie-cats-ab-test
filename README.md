@@ -2,7 +2,7 @@
 
 Analysis of a mobile game A/B test to decide where the first progression gate should sit. Built with the Data Analysis Playbook v3.1.
 
-> **Status:** Phase 2 complete (sample ratio test and descriptive comparison of retention and game rounds by version). Phase 3 (method selection) is next; findings will be added when the project is complete.
+> **Status:** Phase 3 complete (statistical methods selected and documented). Phase 4 (testing) is next; findings will be added when the project is complete.
 
 ---
 
@@ -47,7 +47,7 @@ The data is not stored in this repository. See Reproducibility for how to downlo
 - [x] Phase 0 — Scoping & Project Setup
 - [x] Phase 1 — Data Loading, Cleaning & Exploration
 - [x] Phase 2 — Business Analysis
-- [ ] Phase 3 — Analytical Method Selection
+- [x] Phase 3 — Analytical Method Selection
 - [ ] Phase 4 — Advanced Analytics & Modelling
 - [ ] Phase 5 — Reporting, Communication & Publication
 
@@ -119,6 +119,7 @@ cookie-cats-ab-test/
 | [docs/phase_00_setup.md](docs/phase_00_setup.md) | Phase 0 record: setup, issues and exit checklist |
 | [docs/phase_01_data_preparation.md](docs/phase_01_data_preparation.md) | Phase 1 record: data acquisition, profiling, cleaning and exploration |
 | [docs/phase_02_business_analysis.md](docs/phase_02_business_analysis.md) | Phase 2 record: sample ratio test and descriptive comparison by version |
+| [docs/phase_03_method_selection.md](docs/phase_03_method_selection.md) | Phase 3 record: methods chosen for testing and why |
 | [docs/data_dictionary.md](docs/data_dictionary.md) | Definition of every column |
 | [docs/cleaning_log.md](docs/cleaning_log.md) | Every change between the raw and clean tables |
 | [docs/project_glossary.md](docs/project_glossary.md) | Terms used in the project |

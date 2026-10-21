@@ -43,6 +43,13 @@ Terms used in this project's documentation, code and findings. Definitions are w
 | Sensitivity check | Analytical | Repeating an analysis with a different choice, such as excluding flagged players, to see if the conclusion changes | Does not replace the main analysis |
 | Significance level (α) | Analytical | The accepted false-positive rate | α = 0.05, two-sided |
 | Two-sided test | Analytical | A test that looks for a difference in either direction | All tests in this project |
+| Family-wise error rate | Analytical | The chance of at least one false positive across a group of tests | Kept at 5% for the two retention tests |
+| Fixed-sequence testing | Analytical | Testing in a fixed order, moving to the next test only if the previous one is significant | 1-day retention is tested only if 7-day retention is significant |
+| Mann–Whitney U test | Analytical | A rank-based test of whether values in one group tend to be higher than in another | Used for game rounds |
+| Power | Analytical | The probability that a test detects a true effect of a given size | 90% for the minimum detectable difference |
+| Probability of superiority | Analytical | The chance that a randomly chosen player from one group has a higher value than one from the other, ties counted as half | Effect size for game rounds |
+| Wald interval | Analytical | A confidence interval built from the estimate plus or minus z times its standard error | 95% interval for the retention differences |
+| Bootstrap | Analytical | Resampling the data many times to estimate the variability of a result | Robustness check for the 7-day interval in Phase 4 |
 | EDA | Acronym | Exploratory data analysis | |
 | ITT | Acronym | Intent-to-treat | |
 | MDD | Acronym | Minimum detectable difference | |
