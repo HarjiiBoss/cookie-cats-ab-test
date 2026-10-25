@@ -11,8 +11,8 @@ The dashboard answers one question: should the first gate stay at level 30? It s
 | Dashboard Name | Cookie Cats: Should the First Gate Stay at Level 30? |
 | Business Question | Does moving the first gate from level 30 to level 40 change player retention? |
 | Audience | Product team (decision-makers); game design and monetisation teams |
-| Platform | Tableau Public |
-| Last Updated | 2026-10-21 |
+| Published | [Tableau Public](https://public.tableau.com/views/CookieCats-ShouldtheFirstGateStayatLevel30/CookieCatsShouldtheFirstGateStayatLevel30) |
+| Last Updated | 2026-10-25 |
 
 ---
 
@@ -126,11 +126,11 @@ Red `#C00000` is not used. In the Project 8 dashboard it marks critical risk, an
 
 # Validation Checklist
 
-- [ ] Every value on the dashboard matches the Phase 4 results
-- [ ] Difference charts show gate_40 − gate_30, with the zero line visible
-- [ ] Tooltips reviewed
-- [ ] Titles, notes and the assignment caveat included
-- [ ] Dashboard answers the business question at a glance
+- [x] Every value on the dashboard matches the Phase 4 results
+- [x] Difference charts show gate_40 − gate_30, with the zero line visible
+- [x] Tooltips reviewed
+- [x] Titles, notes and the assignment caveat included
+- [x] Dashboard answers the business question at a glance
 - [ ] Published to Tableau Public and linked from the README
 
 ---
