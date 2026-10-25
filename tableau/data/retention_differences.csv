@@ -1,0 +1,7 @@
+analysis,metric,difference_pp,ci_low_pp,ci_high_pp,p_value,interval_excludes_zero
+1-day retention (main analysis),1-day retention,-0.591,-1.239,0.058,0.0744,False
+Bootstrap interval,7-day retention,-0.82,-1.332,-0.316,,True
+All players (main analysis),7-day retention,-0.82,-1.328,-0.312,0.0016,True
+Excluding the extreme player,7-day retention,-0.818,-1.326,-0.31,0.0016,True
+Excluding zero-round players,7-day retention,-0.812,-1.341,-0.284,0.0026,True
+Excluding both,7-day retention,-0.81,-1.339,-0.282,0.0026,True

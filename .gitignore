@@ -85,3 +85,6 @@ dist/
 # --------------------------------------------------
 .pytest_cache/
 .mypy_cache/
+
+# Tableau auto-recovery files
+*.twbr

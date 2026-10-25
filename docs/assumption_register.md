@@ -43,8 +43,8 @@ This register tracks every significant assumption in the project, from when it i
 
 Before completing the project, confirm:
 
-- [ ] Every major assumption has been documented.
-- [ ] Assumptions are clearly distinguished from observations.
-- [ ] Validation status has been updated where applicable.
-- [ ] High-risk assumptions have been identified.
-- [ ] Business recommendations acknowledge any unresolved assumptions.
+- [x] Every major assumption has been documented.
+- [x] Assumptions are clearly distinguished from observations.
+- [x] Validation status has been updated where applicable.
+- [x] High-risk assumptions have been identified.
+- [x] Business recommendations acknowledge any unresolved assumptions.
