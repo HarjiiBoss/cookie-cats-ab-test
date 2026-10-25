@@ -142,6 +142,7 @@ cookie-cats-ab-test/
 | [docs/phase_03_method_selection.md](docs/phase_03_method_selection.md) | Phase 3 record: methods chosen for testing and why |
 | [docs/phase_04_advanced_analysis.md](docs/phase_04_advanced_analysis.md) | Phase 4 record: test results, decision and validity notes |
 | [docs/executive_summary.md](docs/executive_summary.md) | Recommendation and findings for decision-makers |
+| [docs/presentation_notes.md](docs/presentation_notes.md) | Three-minute dashboard walk-through and prepared answers to likely questions |
 | [docs/tableau_blueprint.md](docs/tableau_blueprint.md) | Dashboard plan, design system and validation |
 | [docs/data_dictionary.md](docs/data_dictionary.md) | Definition of every column |
 | [docs/cleaning_log.md](docs/cleaning_log.md) | Every change between the raw and clean tables |

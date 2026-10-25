@@ -66,5 +66,5 @@ By the end, the audience should know the decision, the evidence for it, and what
 
 - [x] Dashboard opened full screen and tooltips tested
 - [ ] Script rehearsed aloud and timed at about 3 minutes
-- [ ] Numbers in the script checked against the executive summary
+- [x] Numbers in the script checked against the executive summary
 - [ ] Answers to the anticipated questions rehearsed
