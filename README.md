@@ -69,7 +69,7 @@ The data is not stored in this repository. See Reproducibility for how to downlo
 - [x] Phase 2 — Business Analysis
 - [x] Phase 3 — Analytical Method Selection
 - [x] Phase 4 — Advanced Analytics & Modelling
-- [ ] Phase 5 — Reporting, Communication & Publication
+- [x] Phase 5 — Reporting, Communication & Publication
 
 ---
 

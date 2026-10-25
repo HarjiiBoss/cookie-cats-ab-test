@@ -131,7 +131,7 @@ Red `#C00000` is not used. In the Project 8 dashboard it marks critical risk, an
 - [x] Tooltips reviewed
 - [x] Titles, notes and the assignment caveat included
 - [x] Dashboard answers the business question at a glance
-- [ ] Published to Tableau Public and linked from the README
+- [x] Published to Tableau Public and linked from the README
 
 ---
 
