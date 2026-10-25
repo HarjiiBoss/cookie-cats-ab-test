@@ -26,8 +26,6 @@ Analysis of a mobile game A/B test to decide where the first progression gate sh
 
 ---
 
----
-
 # Business Problem
 
 Cookie Cats is a mobile puzzle game. According to the Kaggle dataset description, players meet gates at set levels, where they must wait or make an in-app purchase before continuing. The first gate sits at level 30. A test moved it to level 40 for some players, and the team needs to decide whether to move the gate, keep it at level 30, or keep testing before making a change.
