@@ -26,6 +26,8 @@ Checked on 2026-10-16 by searching the full history of every branch on GitHub (`
 - [x] Personally identifiable information (PII) reviewed (2026-10-16: the five fields contain no names, contact details or other direct identifiers)
 - [ ] Dataset anonymisation confirmed where required (cannot be confirmed: whether `userid` links to real player accounts is not stated. The data is not redistributed)
 
+Rechecked on 2026-10-25 before making the repository public, over the full history of every local and remote branch. Every match for the secret patterns was checklist wording in this file, `.env` was never tracked, and no credential or raw data file appears in the history.
+
 ---
 
 # Environment Configuration
@@ -67,4 +69,4 @@ The repository's MIT licence covers the project's code and documentation only, n
 | Files outside the project are pushed by mistake | Private files from the home folder could reach GitHub | The home-folder Git repository was disconnected; this project is confirmed not nested | Resolved. The backup folder `~/old-home-git-backup` can be deleted once no longer needed |
 | Unexpected cloud charges | Costs to the author | Billing was disabled on the project in the Google Cloud console, so no billing account is linked and BigQuery runs in the sandbox. Recheck if the project configuration changes | Mitigated |
 | The dataset is redistributed against its licence | Breach of the dataset's terms | Data folders are excluded from Git. The licence is listed as Unknown, so the data is used for non-commercial portfolio analysis only and not redistributed | Mitigated |
-| Repository made public with unreviewed history | Anything ever committed becomes visible | Before changing visibility in Phase 5, repeat the scan over the full history of every branch that will become visible, not just the latest files | Open until Phase 5 |
+| Repository made public with unreviewed history | Anything ever committed becomes visible | The full history of every branch was scanned on 2026-10-25 before the visibility change. See Sensitive Information Review | Mitigated |
