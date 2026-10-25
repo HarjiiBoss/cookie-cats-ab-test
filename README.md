@@ -2,7 +2,29 @@
 
 Analysis of a mobile game A/B test to decide where the first progression gate should sit. Built with the Data Analysis Playbook v3.1.
 
-> **Status:** Phase 4 complete (statistical testing). Phase 5 (reporting) is next; findings will be added when the project is complete.
+> **Status:** Complete. Recommendation: keep the first gate at level 30. 7-day retention was 0.8 percentage points lower for players assigned to the level-40 gate.
+
+---
+
+# Results
+
+**Recommendation: keep the first gate at level 30.** Under the decision rule set before the data was examined, the 95% confidence interval for the 7-day retention difference lies entirely below zero.
+
+| Measure | Gate at level 30 | Gate at level 40 | Difference (level 40 − level 30) |
+|---------|------------------|------------------|----------------------------------|
+| 7-day retention (primary) | 19.0% | 18.2% | −0.8 pp (95% CI −1.3 to −0.3), p = 0.002 |
+| 1-day retention (secondary) | 44.8% | 44.2% | −0.6 pp (95% CI −1.2 to +0.1), not statistically significant |
+| Game rounds, median (exploratory) | 17 | 16 | Very similar distributions |
+
+- The 7-day result held under a bootstrap interval and when the player with an extreme number of rounds, the players with no rounds, or both were excluded.
+- Reading the difference as caused by the gate depends on random assignment, which the data cannot confirm. The sample ratio test raised no alert (p = 0.009 against an alert level of 0.001).
+- The data has no revenue or purchase information, so the commercial value of the difference is not estimated.
+
+**Dashboard:** [Tableau Public](https://public.tableau.com/views/CookieCats-ShouldtheFirstGateStayatLevel30/CookieCatsShouldtheFirstGateStayatLevel30) · **Full summary:** [docs/executive_summary.md](docs/executive_summary.md)
+
+![Cookie Cats dashboard](assets/dashboard.png)
+
+---
 
 ---
 
@@ -35,7 +57,7 @@ This is a portfolio project on public learning data. The stakeholders are modell
 |------|---------|
 | Source | Kaggle: `yufengsui/mobile-games-ab-testing`, originally from DataCamp project 184 |
 | Contents | One row per player: `userid`, `version` (`gate_30` or `gate_40`), `sum_gamerounds`, `retention_1`, `retention_7`. No revenue, level or date columns |
-| Licence | Listed as Unknown on Kaggle. The data is not redistributed here; download it from the source |
+| Licence | Listed as Unknown on Kaggle. The data is not redistributed here; download it from the source. The dashboard publishes aggregated results only |
 | Size | 90,189 players, 5 columns. The test period is not recorded in the data |
 
 The data is not stored in this repository. See Reproducibility for how to download it.
@@ -82,9 +104,8 @@ Requirements: Python 3.13, the Google Cloud CLI, and a Google account.
 6. In the BigQuery console, with your project selected, run Section 3 of `sql/01_data_preparation.sql` to build `cookie_cats.clean_cookie_cats`, then Section 4 to check it against the raw table. Sections 1 and 2 are the profiling and investigation queries.
 7. Run `notebooks/02_cleaning_eda.ipynb` for the exploratory analysis.
 8. Run `notebooks/03_business_analysis.ipynb`. It runs the sample ratio test and the descriptive queries from `sql/02_business_analysis.sql` (which can also be run section by section in the BigQuery console) and saves the two Phase 2 charts to `outputs/`.
-  9. Run `notebooks/04_statistical_testing.ipynb` for the statistical tests, the minimum detectable difference and the robustness and sensitivity checks.
-
-Later phases add their notebooks and scripts to this list.
+9. Run `notebooks/04_statistical_testing.ipynb` for the statistical tests, the minimum detectable difference and the robustness and sensitivity checks. Its section 4.7 writes the three summary tables in `tableau/data/` used by the dashboard.
+10. Open `tableau/cookie_cats_dashboard.twbx` in Tableau Public (desktop) to view or rebuild the dashboard.
 
 No service account key file is used; authentication relies on your own Google login.
 
@@ -122,6 +143,8 @@ cookie-cats-ab-test/
 | [docs/phase_02_business_analysis.md](docs/phase_02_business_analysis.md) | Phase 2 record: sample ratio test and descriptive comparison by version |
 | [docs/phase_03_method_selection.md](docs/phase_03_method_selection.md) | Phase 3 record: methods chosen for testing and why |
 | [docs/phase_04_advanced_analysis.md](docs/phase_04_advanced_analysis.md) | Phase 4 record: test results, decision and validity notes |
+| [docs/executive_summary.md](docs/executive_summary.md) | Recommendation and findings for decision-makers |
+| [docs/tableau_blueprint.md](docs/tableau_blueprint.md) | Dashboard plan, design system and validation |
 | [docs/data_dictionary.md](docs/data_dictionary.md) | Definition of every column |
 | [docs/cleaning_log.md](docs/cleaning_log.md) | Every change between the raw and clean tables |
 | [docs/project_glossary.md](docs/project_glossary.md) | Terms used in the project |
