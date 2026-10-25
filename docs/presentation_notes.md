@@ -49,6 +49,7 @@ By the end, the audience should know the decision, the evidence for it, and what
 | Could the effect be smaller than 0.8 points? | Yes. The plausible range runs down to 0.3 points, and estimates near the smallest effect a test can reliably detect (0.85 points here) tend to overstate the true effect. The range is the safer summary. |
 | Did knowing the published results affect the analysis? | The decision rules were set before the data was examined, and the published analyses of this dataset were not reviewed beforehand. The rule for the group-size check was added later, before that check was run. |
 | What would you do next? | Keep the gate at level 30. Log player progression and purchases so a follow-up test can measure effects on revenue and design around players who actually meet the gate. |
+| What exactly counts as retained? | The data does not define it. 111 players with no recorded rounds are marked as retained, so the flag may record a return to the game rather than a round played. Both versions use the same flag, so the comparison between them holds. |
 
 ---
 
@@ -61,9 +62,9 @@ By the end, the audience should know the decision, the evidence for it, and what
 
 ---
 
-# Checklist
+# Checklist Before Presenting
 
-- [ ] Dashboard opened full screen and tooltips tested
+- [x] Dashboard opened full screen and tooltips tested
 - [ ] Script rehearsed aloud and timed at about 3 minutes
 - [ ] Numbers in the script checked against the executive summary
 - [ ] Answers to the anticipated questions rehearsed

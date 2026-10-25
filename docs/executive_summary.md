@@ -46,6 +46,7 @@ If the difference is caused by the gate position, keeping the gate at level 30 r
 - **Practical significance.** The difference is statistically significant, but whether it is large enough to matter commercially has not been established. The decision rule used zero as its threshold.
 - **Missing information.** The data does not show which players reached the gate, what players spent, or retention beyond day 7.
 - **Data source.** This is a public teaching dataset, so the findings illustrate the method and are not evidence about the current game.
+- **Retention definition.** The data does not define the retention flags. 111 players with no recorded rounds are marked as retained, so a flag may record a return to the game rather than a round played. Both versions use the same flags, so the comparison between them is unaffected, but the exact meaning of the 7-day rate is taken from the dataset description.
 
 ---
 
