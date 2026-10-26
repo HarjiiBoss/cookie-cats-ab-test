@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taofeek Salami — Cookie Cats A/B Test</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #13161e;
+      --surface2: #1a1e28;
+      --border: #252a38;
+      --accent: #c8a96e;
+      --accent2: #7eb8c9;
+      --text: #e8e4dc;
+      --muted: #7a7f8e;
+      --green: #6dbf8a;
+      --red: #e07b6a;
+      --purple: #b48ecf;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── HERO ── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 8vw 4rem;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(126,184,201,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 .accent { color: var(--accent); }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .hero-bio {
+      max-width: min(780px, 60vw);
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.35s ease both;
+    }
+
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    .badge-sql     { color: var(--accent);  border-color: rgba(200,169,110,0.3); background: rgba(200,169,110,0.07); }
+    .badge-bigquery { color: var(--accent2); border-color: rgba(126,184,201,0.3); background: rgba(126,184,201,0.07); }
+    .badge-python  { color: #7eb8c9;        border-color: rgba(126,184,201,0.3); background: rgba(126,184,201,0.07); }
+    .badge-tableau { color: #e8a87c;        border-color: rgba(232,168,124,0.3); background: rgba(232,168,124,0.07); }
+    .badge-complete{ color: var(--green);   border-color: rgba(109,191,138,0.3); background: rgba(109,191,138,0.07); }
+
+    .hero-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .hero-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .hero-link::before { content: '→'; color: var(--accent); }
+    .hero-link:hover { color: var(--accent); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 8vw;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      animation: fadeUp 0.6s 0.6s ease both;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    /* ── LAYOUT ── */
+    main { position: relative; z-index: 1; }
+    section { padding: 5rem 8vw; border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      line-height: 1.2;
+    }
+
+    /* ── KPI GRID ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .kpi-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .kpi-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .kpi-value.danger  { color: var(--red); }
+    .kpi-value.warning { color: #e8a87c; }
+    .kpi-value.good    { color: var(--green); }
+
+    .kpi-context {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+
+    /* ── DASHBOARD PREVIEW ── */
+    .dashboard-wrap {
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 0.6rem;
+    }
+
+    .dashboard-wrap img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .dashboard-wrap:hover img { transform: scale(1.01); }
+
+    .dashboard-caption {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-align: center;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-top: none;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── FINDINGS ── */
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr)); /* 4 findings sit as 2 × 2 */
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .finding-card {
+      background: var(--surface);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .finding-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent2);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .finding-card:hover { background: var(--surface2); }
+    .finding-card:hover::before { transform: scaleX(1); }
+
+    .finding-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .finding-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .finding-body {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .finding-body strong { color: var(--accent); font-weight: 500; }
+    .finding-body .danger { color: var(--red); font-weight: 500; }
+    .finding-body .good   { color: var(--green); font-weight: 500; }
+
+    .finding-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--border);
+      line-height: 1;
+      margin-top: auto;
+    }
+
+    /* ── INSIGHTS (Recommendations) ── */
+    .insights-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .insight-item {
+      background: var(--surface);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+      transition: background 0.2s;
+    }
+
+    .insight-item:hover { background: var(--surface2); }
+
+    .insight-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .insight-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .insight-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .insight-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+    }
+
+    .insight-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .insight-text strong { color: var(--accent); font-weight: 500; }
+    .insight-text .danger { color: var(--red); font-weight: 500; }
+    .insight-text .good   { color: var(--green); font-weight: 500; }
+
+    /* ── PROCESS ── */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); /* 6 phases sit as 3 × 2 */
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .process-card {
+      background: var(--surface);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: background 0.2s;
+    }
+
+    .process-card:hover { background: var(--surface2); }
+
+    .process-phase {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .process-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .process-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── DATA NOTE ── */
+    .data-note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent2);
+      padding: 1.5rem 2rem;
+      margin-top: 2rem;
+    }
+
+    .data-note-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+
+    .data-note p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── DELIVERABLE ── */
+    .deliverable-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent2);
+      padding: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+    }
+
+    .deliverable-card:hover { background: var(--surface2); }
+
+    .deliverable-icon {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent2);
+      line-height: 1;
+    }
+
+    .deliverable-content { flex: 1; }
+
+    .deliverable-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+
+    .deliverable-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .deliverable-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .deliverable-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.2s;
+    }
+
+    .deliverable-link:hover { gap: 0.8rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--accent); }
+    .footer-links { display: flex; gap: 1.5rem; }
+
+    .footer-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      .insight-item { grid-template-columns: 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header>
+  <div class="hero-tag">SQL · Python · Tableau · 90,189 Players · Project 9</div>
+  <h1>Cookie Cats<br/><span class="accent">A/B Test</span><br/>First-Gate Placement</h1>
+
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Dataset</span>
+      <span class="meta-value">Kaggle: Mobile Games A/B Testing · 90,189 Players</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Tools</span>
+      <span class="meta-value">BigQuery · Python · Tableau</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Focus</span>
+      <span class="meta-value">Experiment Analysis · Retention · Decision Rules</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Completed</span>
+      <span class="meta-value">Oct 2026</span>
+    </div>
+  </div>
+
+  <p class="hero-bio">Cookie Cats is a mobile puzzle game in which, according to the dataset description, players meet gates at set levels and must wait or make an in-app purchase to continue. A test assigned 44,700 players to a version with the first gate at level 30 and 45,489 to a version with it at level 40. This project decides whether the gate should move, using a decision rule set before the data was examined, and reports what the result can and cannot show.</p>
+
+  <div class="badge-row">
+    <span class="badge badge-sql">SQL</span>
+    <span class="badge badge-bigquery">BigQuery</span>
+    <span class="badge badge-python">Python</span>
+    <span class="badge badge-tableau">Tableau</span>
+    <span class="badge badge-complete">Complete</span>
+  </div>
+
+  <div class="hero-links">
+    <a class="hero-link" href="https://github.com/HarjiiBoss/cookie-cats-ab-test" target="_blank">GitHub Repo</a>
+    <a class="hero-link" href="https://public.tableau.com/views/CookieCats-ShouldtheFirstGateStayatLevel30/CookieCatsShouldtheFirstGateStayatLevel30" target="_blank">Live Tableau Dashboard</a>
+    <a class="hero-link" href="https://github.com/HarjiiBoss/cookie-cats-ab-test/blob/main/docs/executive_summary.md" target="_blank">Executive Summary</a>
+    <a class="hero-link" href="https://harjiiboss.github.io" target="_blank">Portfolio</a>
+  </div>
+
+  <div class="scroll-hint">Scroll to explore</div>
+</header>
+
+<main>
+
+  <!-- ═══ RESULT SNAPSHOT ═══ -->
+  <section>
+    <div class="section-label reveal">Result Snapshot</div>
+    <h2 class="reveal">Keep the First Gate at Level 30</h2>
+
+    <div class="kpi-grid reveal">
+      <div class="kpi-card">
+        <div class="kpi-label">Players in the Test</div>
+        <div class="kpi-value">90,189</div>
+        <div class="kpi-context">44,700 at level 30 · 45,489 at level 40</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">7-Day Retention, Level 30</div>
+        <div class="kpi-value">19.0%</div>
+        <div class="kpi-context">primary metric</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">7-Day Retention, Level 40</div>
+        <div class="kpi-value">18.2%</div>
+        <div class="kpi-context">primary metric</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Difference</div>
+        <div class="kpi-value">−0.8 pp</div>
+        <div class="kpi-context">95% interval −1.3 to −0.3 · p = 0.002</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">1-Day Difference</div>
+        <div class="kpi-value">−0.6 pp</div>
+        <div class="kpi-context">not statistically significant</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Minimum Detectable Difference</div>
+        <div class="kpi-value">0.85 pp</div>
+        <div class="kpi-context">at 90% power</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DASHBOARD PREVIEW ═══ -->
+  <section>
+    <div class="section-label reveal">Interactive Dashboard</div>
+    <h2 class="reveal">One Decision, With Its Evidence and Limits</h2>
+    <p class="hero-bio reveal" style="margin-bottom: 2.5rem;">Built in Tableau Public from three aggregated files exported by the analysis notebook, so no player-level data is published. The dashboard reads from top to bottom: the question, the retention figures, the interval the decision is read from, the supporting comparisons, the robustness checks and the caveats.</p>
+
+    <div class="dashboard-wrap reveal">
+      <img src="https://raw.githubusercontent.com/HarjiiBoss/cookie-cats-ab-test/main/assets/dashboard.png" alt="Cookie Cats A/B test dashboard" />
+    </div>
+    <div class="dashboard-caption reveal">Should the first gate stay at level 30? Retention by version, the retention difference with its 95% interval, game rounds and robustness checks</div>
+  </section>
+
+  <!-- ═══ FINDINGS ═══ -->
+  <section>
+    <div class="section-label reveal">Key Findings</div>
+    <h2 class="reveal">What the Test Showed</h2>
+
+    <div class="findings-grid reveal">
+
+      <div class="finding-card">
+        <div class="finding-category">Primary Metric</div>
+        <div class="finding-title">7-Day Retention Was Lower With the Gate at Level 40</div>
+        <div class="finding-body">18.2% of players assigned to the level-40 gate came back to play 7 days after installing, against 19.0% at level 30. The 95% interval for the difference runs from <strong>1.3 to 0.3 percentage points lower</strong>, entirely below zero, so the pre-set decision rule gives: keep the gate at level 30.</div>
+        <div class="finding-number">01</div>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-category">Secondary Metric</div>
+        <div class="finding-title">1-Day Retention Could Not Separate the Versions</div>
+        <div class="finding-body">1-day retention was 44.2% at level 40 against 44.8% at level 30. The interval, <strong>−1.2 to +0.1 points</strong>, includes zero, so the data is consistent with both no difference and a small drop at day 1.</div>
+        <div class="finding-number">02</div>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-category">Guardrail (Exploratory)</div>
+        <div class="finding-title">Game Rounds Were Very Similar</div>
+        <div class="finding-body">Median rounds were 17 at level 30 and 16 at level 40. A randomly chosen level-40 player played more rounds than a randomly chosen level-30 player <strong>49.6%</strong> of the time, against 50% if neither version played more.</div>
+        <div class="finding-number">03</div>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-category">Robustness</div>
+        <div class="finding-title">The Result Held Under Four Further Checks</div>
+        <div class="finding-body">The 7-day interval stayed below zero with a bootstrap interval, and when the one player with 49,854 rounds, the players with no rounds, or both were left out.</div>
+        <div class="finding-number">04</div>
+      </div>
+
+    </div>
+
+    <div class="data-note reveal">
+      <div class="data-note-label">What the Data Cannot Show</div>
+      <p>Reading the difference as caused by the gate depends on random assignment, which the dataset does not document; the sample ratio test raised no alert (p = 0.009 against an alert level of 0.001) but cannot prove it. The observed difference is close to the smallest this test could reliably detect, so the full interval is a safer summary than the single figure. The data has no revenue, purchase or level information, so the commercial value of the difference is not estimated.</p>
+    </div>
+  </section>
+
+  <!-- ═══ RECOMMENDATIONS ═══ -->
+  <section>
+    <div class="section-label reveal">Recommendations</div>
+    <h2 class="reveal">What the Product Team Should Do</h2>
+
+    <div class="insights-list reveal">
+
+      <div class="insight-item">
+        <div class="insight-left">
+          <div class="insight-number">01</div>
+          <div class="insight-category">Decision</div>
+        </div>
+        <div class="insight-right">
+          <div class="insight-title">Keep the First Gate at Level 30</div>
+          <div class="insight-text">If the difference is caused by the gate position, keeping it at level 30 means roughly <strong>300 to 1,300 more players</strong> coming back on day 7 for every 100,000 new players.</div>
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-left">
+          <div class="insight-number">02</div>
+          <div class="insight-category">Data Collection</div>
+        </div>
+        <div class="insight-right">
+          <div class="insight-title">Record Progression and Purchases Before the Next Test</div>
+          <div class="insight-text">Logging whether and when players reach the gate, alongside in-game purchases, would allow the next test to measure effects on revenue and on players who actually meet the gate.</div>
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-left">
+          <div class="insight-number">03</div>
+          <div class="insight-category">Test Design</div>
+        </div>
+        <div class="insight-right">
+          <div class="insight-title">Agree the Smallest Worthwhile Change in Advance</div>
+          <div class="insight-text">This test used zero as its threshold, so it settles direction, not business size. Setting a minimum effect worth acting on lets the next result be judged on both.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ PROCESS ═══ -->
+  <section>
+    <div class="section-label reveal">Methodology</div>
+    <h2 class="reveal">6-Phase End-to-End Workflow</h2>
+
+    <div class="process-grid reveal">
+      <div class="process-card">
+        <div class="process-phase">Phase 0</div>
+        <div class="process-title">Scoping & Decision Rules</div>
+        <div class="process-desc">Set the business question, metrics, hypotheses and decision rules before the data was examined, including what each possible interval would mean for the gate.</div>
+      </div>
+      <div class="process-card">
+        <div class="process-phase">Phase 1</div>
+        <div class="process-title">Loading & Cleaning</div>
+        <div class="process-desc">Loaded the data into BigQuery and confirmed one row per player, no player in both versions and no missing or invalid values. Kept every player and flagged the extreme value for the sensitivity checks.</div>
+      </div>
+      <div class="process-card">
+        <div class="process-phase">Phase 2</div>
+        <div class="process-title">Business Analysis</div>
+        <div class="process-desc">Ran a sample ratio test before comparing outcomes, then described retention, retention patterns and game rounds by version in SQL.</div>
+      </div>
+      <div class="process-card">
+        <div class="process-phase">Phase 3</div>
+        <div class="process-title">Method Selection</div>
+        <div class="process-desc">Chose a two-proportion z-test with a 95% interval, fixed-sequence testing for the secondary metric, Mann–Whitney U for game rounds, and a power calculation for the minimum detectable difference.</div>
+      </div>
+      <div class="process-card">
+        <div class="process-phase">Phase 4</div>
+        <div class="process-title">Statistical Testing</div>
+        <div class="process-desc">Ran the tests in Python, checked library results by manual calculation, and reported a bootstrap interval and sensitivity checks whatever their result.</div>
+      </div>
+      <div class="process-card">
+        <div class="process-phase">Phase 5</div>
+        <div class="process-title">Reporting & Publication</div>
+        <div class="process-desc">Wrote the executive summary and built the Tableau dashboard. Before publishing, re-ran every notebook from a clean kernel; the dashboard data reproduced exactly.</div>
+      </div>
+    </div>
+
+    <div class="deliverable-card reveal">
+      <div class="deliverable-icon">↗</div>
+      <div class="deliverable-content">
+        <div class="deliverable-label">Full Project Repository</div>
+        <div class="deliverable-title">Cookie Cats A/B Test — GitHub</div>
+        <div class="deliverable-desc">Repository contains the BigQuery SQL scripts, four Python notebooks, the packaged Tableau workbook, the executive summary and phase-by-phase documentation including the decision rules, assumption register and data dictionary.</div>
+        <a class="deliverable-link" href="https://github.com/HarjiiBoss/cookie-cats-ab-test" target="_blank">View Repository →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <span class="footer-name">Taofeek Salami</span>
+  <div class="footer-links">
+    <a class="footer-link" href="https://linkedin.com/in/taofeek-salami-460a93245" target="_blank">LinkedIn</a>
+    <a class="footer-link" href="https://github.com/HarjiiBoss" target="_blank">GitHub</a>
+    <a class="footer-link" href="mailto:salamitaofeek92@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  // Fade sections in as they scroll into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
