@@ -1,0 +1,11 @@
+# .figures-allow — figures checked by hand that tools/check_figures.py cannot find in the outputs.
+# One figure per line, written as it appears in the text, then '#' and how it was derived.
+# List a figure only after checking the calculation. A typed or drifted figure is fixed, not listed.
+
+111      # outputs/query_2_3_zero_round_retention.csv: zero-round players marked retained, 24 + 82 + 5 (the fourth row, 3,883, is never retained; all four rows sum to 3,994)
+300      # 95% CI for the 7-day difference is 0.3 to 1.3 percentage points; 0.003 x 100,000 players = 300
+1,300    # 0.013 x 100,000 players = 1,300
+100,000  # scale used to express the interval as players; not a finding
+184      # DataCamp project number in the dataset's source description; not a finding
+3.13     # Python version in the Reproducibility requirements; not a finding
+4.7      # notebook section number; not a finding

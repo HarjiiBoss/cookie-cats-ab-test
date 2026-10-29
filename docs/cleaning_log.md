@@ -77,7 +77,7 @@ None. Two flag columns were added: `is_extreme_gamerounds` and `is_zero_gameroun
 
 # Data Quality Findings
 
-- 111 of the 3,994 zero-round players are marked as retained at day 1, day 7 or both (query 2.3). If retention means the player came back and played, these records do not fully agree with `sum_gamerounds`. The data does not show which field is responsible, so no change was made.
+- 111 of the 3,994 zero-round players are marked as retained at day 1, day 7 or both (query 2.3; result saved in `outputs/query_2_3_zero_round_retention.csv`). If retention means the player came back and played, these records do not fully agree with `sum_gamerounds`. The data does not show which field is responsible, so no change was made.
 - 26,971 players are retained at day 1 but not at day 7 (query 2.4). `retention_7` therefore does not include day 1; it is not a running total from install.
 - The data has no dates or timestamps, so install dates and the test period cannot be checked.
 

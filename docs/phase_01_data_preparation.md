@@ -152,7 +152,7 @@ Summary: No leakage into the outcome. `sum_gamerounds` was recorded after player
 
 ## Other Data Quality Issues
 
-Summary: 3,994 players (4.43%) recorded 0 game rounds; kept and flagged with `is_zero_gamerounds`. Of these, 111 are marked as retained at day 1, day 7 or both (query 2.3), which does not fully agree with a "came back and played" definition of retention. 26,971 players are retained at day 1 but not day 7 (query 2.4), so `retention_7` does not include day 1.
+Summary: 3,994 players (4.43%) recorded 0 game rounds; kept and flagged with `is_zero_gamerounds`. Of these, 111 are marked as retained at day 1, day 7 or both (query 2.3; result saved in `outputs/query_2_3_zero_round_retention.csv`), which does not fully agree with a "came back and played" definition of retention. 26,971 players are retained at day 1 but not day 7 (query 2.4), so `retention_7` does not include day 1.
 
 ---
 
