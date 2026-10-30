@@ -24,6 +24,7 @@
 | phase_05_reporting.md | Phase 5 documentation | ☑ Complete | 2026-10-25 |
 | executive_summary.md | Executive summary | ☑ Complete | 2026-10-25 |
 | presentation_notes.md | Presentation planning | ☑ Complete | 2026-10-25 |
+| published_surfaces.md | Every place the findings appear outside the repository (moved from the README) | ☑ Complete | 2026-10-30 |
 
 ---
 

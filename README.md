@@ -149,6 +149,7 @@ cookie-cats-ab-test/
 | [docs/project_glossary.md](docs/project_glossary.md) | Terms used in the project |
 | [docs/assumption_register.md](docs/assumption_register.md) | Assumptions and their validation status |
 | [docs/security_notes.md](docs/security_notes.md) | Security checks and data handling |
+| [docs/published_surfaces.md](docs/published_surfaces.md) | Every place the findings appear outside this repository |
 | [docs/documentation_index.md](docs/documentation_index.md) | Index of all project documents |
 
 ---
@@ -156,19 +157,3 @@ cookie-cats-ab-test/
 # License
 
 The code and documentation in this repository are released under the MIT License. The dataset is not covered by this licence; its terms are set by its Kaggle listing.
-
----
-
-# Published Surfaces
-
-Every place this project's findings appear outside this repository. When a figure changes, each one is updated and its date refreshed (Data Analysis Playbook v3.4, Published Surfaces).
-
-| Surface | Link | Figures quoted | Last checked |
-|---------|------|----------------|--------------|
-| Project page | [taofeeksalami.com/cookie-cats-ab-test](https://taofeeksalami.com/cookie-cats-ab-test) | Full findings | 29 Oct 2026 |
-| Tableau dashboard | [Tableau Public](https://public.tableau.com/views/CookieCats-ShouldtheFirstGateStayatLevel30/CookieCatsShouldtheFirstGateStayatLevel30) | 90,189 players, 19.0% and 18.2% 7-day retention, −0.8 pp (95% CI −1.3 to −0.3) | 29 Oct 2026 |
-| Portfolio site card | [taofeeksalami.com](https://taofeeksalami.com) | 90,189 players, −0.8 pp, 0.3–1.3 pp lower (95% CI) | 29 Oct 2026 |
-| GitHub profile README | [github.com/HarjiiBoss](https://github.com/HarjiiBoss) | 90,189, 19.0%, 18.2%, −0.8 pp, 95% CI −1.3 to −0.3, p = 0.002 | 29 Oct 2026 |
-| Resume | — | 90,189 players, 0.8 pp lower, 95% CI 0.3 to 1.3 points lower, p = 0.002 | 29 Oct 2026 |
-| LinkedIn About | [LinkedIn profile](https://linkedin.com/in/taofeek-salami-460a93245) | 90,189 players, 0.8 pp lower, p = 0.002 | 29 Oct 2026 |
-| LinkedIn post | Project post | 90,189 players, 19.0% and 18.2%, −0.8 pp (95% CI −1.3 to −0.3), p = 0.002 | 29 Oct 2026 |
